@@ -9,6 +9,7 @@ express()
   .get('/', (req, res) => res.render('public/index.html'))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
+/*
 var admin = require("firebase-admin");
 
 var serviceAccount = require("path/to/serviceAccountKey.json");
@@ -17,3 +18,4 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://god-jammit.firebaseio.com"
 });
+*/
