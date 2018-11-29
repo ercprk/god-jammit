@@ -1,0 +1,80 @@
+body, html {
+    padding: 0;
+    margin: 0;
+    min-width: 500px;
+}
+
+#logo {
+    height: 2.5em;
+}
+
+@media screen
+  and (max-width: 775px)
+  and (-webkit-min-device-pixel-ratio: 1) {
+      #navbar {
+          text-align: center;
+      }
+
+      #login {
+          display: block;
+          margin: 0 auto;
+      }
+}
+
+@media screen
+  and (min-width: 775px)
+  and (min--moz-device-pixel-ratio: 1) {
+      #navbar {
+          text-align: center;
+      }
+
+      #login {
+          display: block;
+          margin: 0 auto;
+      }
+}
+
+#plus {
+    height: 1.25em;
+    padding-bottom: 4px;
+}
+
+#desc {
+    color: white;
+    background-image: url("/images/midi.jpg");
+    background-size: cover;
+    margin: 5% auto;
+    width: 75%;
+    padding: 5% 0;
+    border: solid 5px black;
+    border-radius: 10px;
+}
+
+#desc h1 {
+    font-size: 3em;
+    padding-bottom: 3%;
+}
+
+#text {
+    text-align: center;
+    margin: 3% 0;
+}
+
+#project {
+    margin-right: 1%;
+}
+
+*:active, *:focus {
+    box-shadow: none !important;
+    outline: 0px !important;
+}
+
+#loginbox {
+    text-align: center;
+    margin: 5% auto;
+    width: 40%;
+}
+
+#inputs {
+    margin: 10% 0;
+}
