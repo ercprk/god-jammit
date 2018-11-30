@@ -16,6 +16,7 @@ admin.initializeApp({
   databaseURL: "https://god-jammit.firebaseio.com"
 });
 
+/*
 var db = admin.database();
 var ref = db.ref("restricted_access/secret_document");
 ref.once("value", function(snapshot) {
