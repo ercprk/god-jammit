@@ -16,4 +16,4 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://god-jammit.firebaseio.com"
 });
-
+*/
