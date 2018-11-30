@@ -3,7 +3,7 @@ const path = require('path')
 const PORT = process.env.PORT || 5000
 /*
 var admin = require('firebase-admin');
-var serviceAccount = require("/Users/phananh/Desktop/Fall 2018 /Comp 20/god-jammit/node-js-getting-started/god-jammit-firebase-adminsdk-w7yum-a61e9bd5f0.json/");
+var serviceAccount = require("./god-jammit-firebase-adminsdk-w7yum-a61e9bd5f0.json/");
 */
 
 express()
