@@ -16,20 +16,3 @@ admin.initializeApp({
   databaseURL: "https://god-jammit.firebaseio.com"
 });
 
-/*
-var db = admin.database();
-var ref = db.ref("restricted_access/secret_document");
-ref.once("value", function(snapshot) {
-  console.log(snapshot.val());
-});
-
-
-/*
-admin.initializeApp({
-  credential: admin.credential.cert({
-    projectId: 'god-jammit',
-    clientEmail: 'firebase-adminsdk-w7yum@god-jammit.iam.gserviceaccount.com',
-    privateKey: '-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDU1wn6YNAWV4ZT\n-----END PRIVATE KEY-----\n'
-  }),
-  databaseURL: 'https://god-jammit.firebaseio.com'
-});
