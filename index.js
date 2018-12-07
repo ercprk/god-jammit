@@ -14,7 +14,6 @@ express()
   .get('/:id', (req, res) => res.render('newProject', {title: "Test", message: "Under maintenance! :)"}))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
-/*
 var admin = require("firebase-admin");
 
 var serviceAccount = require("path/to/serviceAccountKey.json");
@@ -23,4 +22,3 @@ admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://god-jammit.firebaseio.com"
 });
-*/
