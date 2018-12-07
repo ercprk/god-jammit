@@ -13,7 +13,9 @@
   "dependencies": {
     "ejs": "^2.5.6",
     "express": "^4.15.2",
-    "firebase-admin": "latest",
+    "firebase-admin": "5.4.0",
+    "grpc": "^1.10.1",
+    "node-gyp": "^3.0.3",
     "pug": "^2.0.3"
   },
   "devDependencies": {
