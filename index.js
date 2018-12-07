@@ -17,7 +17,7 @@ express()
   .get('/new_project', (req, res) => res.render('newProject', { title: "What's up", message: 'YEET!' }))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
-/*
+
 admin.initializeApp({
   credential: admin.credential.cert({
     projectId: 'god-jammit',
@@ -26,13 +26,14 @@ admin.initializeApp({
   }),
   databaseURL: 'https://god-jammit.firebaseio.com'
 });
-*/
+/*
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://god-jammit.firebaseio.com"
 });
 
+*/
 var db = admin.database();
 var ref = db.ref("restricted_access/secret_document");
 ref.once("value", function(snapshot) {
