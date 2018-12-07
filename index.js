@@ -41,3 +41,5 @@ ref.once("value", function(snapshot) {
 
 */
 
+var db = firebase.database();
+
