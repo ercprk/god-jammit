@@ -22,7 +22,7 @@ body, html {
 }
 
 @media screen
-  and (min-width: 775px)
+  and (max-width: 775px)
   and (min--moz-device-pixel-ratio: 1) {
       #navbar {
           text-align: center;
