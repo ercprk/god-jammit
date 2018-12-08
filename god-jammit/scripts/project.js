@@ -9,3 +9,12 @@ $(document).ready(function() {
     });
     $('#id').val(id[3]);
 });
+
+//https://stackoverflow.com/questions/639815/how-to-disable-all-div-content
+firebase.auth().onAuthStateChanged(function(user) {
+  if (!user) {
+      $(document).ready(function() {
+        $('#fun').addClass('disabled');
+      });
+  }
+});

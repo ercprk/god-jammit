@@ -1,6 +1,5 @@
 const express = require('express')
 const path = require('path')
-//const engines = require('consolidate');
 //const pug = require('pug')
 const uuid = require('uuid/v4')
 const bodyParser = require("body-parser");
@@ -30,7 +29,6 @@ express()
   //.set('views', path.join(__dirname, 'views'))
   //.engine('html', require('ejs').renderFile)
   //.set('view engine', 'ejs')
-  //.engine('html', engines.mustache)
   //.set('view engine', 'html')
   //.set('view engine', 'pug')
   //.get('/', (req, res) => res.sendFile('project.html'))
@@ -40,9 +38,10 @@ express()
         res.send('/' + uuid());
     }
     else {
-        res.send('/login.html')
+        res.send('/login')
     }
   })
+  .get('/login', (req, res) => res.sendFile('login.html', {root: __dirname + '/god-jammit/'}))
   .get('/:id', (req, res) => res.sendFile('project.html', {root: __dirname + '/god-jammit/'}))
   .post('/search', (req, res) => res.redirect('search?query=' + req.body.search))
   .get('/search', function(req, res) {

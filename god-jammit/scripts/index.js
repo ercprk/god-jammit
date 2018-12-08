@@ -3,7 +3,6 @@ firebase.auth().onAuthStateChanged(function(user) {
     $("#login").html("Sign out");
     $("#login").on("click", function() {
         firebase.auth().signOut();
-        alert("You have logged out!");
         window.open("/", "_self");
         return false;
     });
