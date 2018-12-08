@@ -1,6 +1,6 @@
 const express = require('express')
 const path = require('path')
-//const pug = require('pug')
+const pug = require('pug')
 const uuid = require('uuid/v4')
 const bodyParser = require("body-parser");
 const PORT = process.env.PORT || 5000
@@ -26,11 +26,11 @@ express()
      res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
      next();
   })
-  //.set('views', path.join(__dirname, 'views'))
+  .set('views', path.join(__dirname, 'views'))
   //.engine('html', require('ejs').renderFile)
-  //.set('view engine', 'ejs')
+  .set('view engine', 'ejs')
   //.set('view engine', 'html')
-  //.set('view engine', 'pug')
+  .set('view engine', 'pug')
   //.get('/', (req, res) => res.sendFile('project.html'))
   //https://stackoverflow.com/questions/25270434/nodejs-how-to-render-static-html-with-express-4
   .post('/', function(req, res) {
@@ -43,12 +43,12 @@ express()
   })
   .get('/login', (req, res) => res.sendFile('login.html', {root: __dirname + '/god-jammit/'}))
   .get('/:id', (req, res) => res.sendFile('project.html', {root: __dirname + '/god-jammit/'}))
-  .post('/search', (req, res) => res.redirect('search?query=' + req.body.search))
-  .get('/search', function(req, res) {
-      db.ref("projects").once('value').then(function(snap) {
-              console.log(snap.val());
-      })
-      res.sendFile('search.html', {root: __dirname + '/god-jammit/'});
+  .post('/search', function(req, res) {
+      //db.ref("projects").once('value').then(function(snap) {
+        //  console.log(snap.val());
+      //});
+      //res.sendFile('search.html', {root: __dirname + '/god-jammit/'});
+      res.render('search', {result: req.body.search});
   })
   .post('/publish', function(req, res) {
       db.ref("projects/" + req.body.id).set({
