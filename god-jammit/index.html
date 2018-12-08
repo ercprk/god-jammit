@@ -60,7 +60,7 @@
                 <h2>Begin by starting your own project or find existing projects to work on!</h2>
             </div>
 
-            <form action="/search">
+            <form action="/search" method="post">
 
                 <div class="input-group input-group-lg">
                     <a id="project" class="btn btn-secondary btn-lg" role="button" href="https://god-jammit.herokuapp.com/project">
@@ -68,9 +68,9 @@
                         New Project
                     </a>
                     <!-- Search box for the search engine. Will write script to search page at a later time-->
-                    <input type="text" class="form-control rounded" placeholder="Search for projects..." />
+                    <input type="text" class="form-control rounded" name="search" placeholder="Search for projects..." />
                     <div class="input-group-append">
-                        <button class="btn btn-dark" type="button">Search</button>
+                        <input type="submit" class="btn btn-dark" />
                     </div>
                 </div>
 
