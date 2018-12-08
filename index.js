@@ -12,7 +12,10 @@ admin.initializeApp({
   databaseURL: "https://god-jammit.firebaseio.com"
 });
 
+var db = admin.database();
+
 express()
+//https://stackoverflow.com/questions/18165138/res-sendfile-doesnt-serve-javascripts-well
   .use(express.static(path.join(__dirname, '/god-jammit')))
   //.use('/styles', express.static(path.join(__dirname, '/god-jammit/styles')))
   //.use('/scripts', express.static(path.join(__dirname, '/god-jammit/scripts')))
@@ -31,10 +34,18 @@ express()
   .get('/project/:id', (req, res) => res.sendFile('project.html', {root: __dirname + '/god-jammit/'}))
   .post('/search', (req, res) => res.redirect('search?search=' + req.body.search))
   .get('/search', function(req, res) {
-      var collection = admin.database().ref("projects");
-      collection.once('value').then(function(snap) {
+      db.ref("projects").once('value').then(function(snap) {
               res.send(snap.val());
           })
+  })
+  .post('/publish', function(req, res) {
+      db.ref("projects/" + req.body.id).set({
+          name: req.body.name,
+          owner: "someone",
+          collaborators: ["person1", "person2"],
+          made_at: Date(),
+          audio: "test.mp3"
+      })
   })
   //.post('/submit', function(req, res) {})
 //https://stackoverflow.com/questions/38541098/how-to-retrieve-data-from-firebase-database
