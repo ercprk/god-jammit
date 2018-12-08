@@ -25,7 +25,6 @@
         <script src="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.js"></script>
         <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-        <!-- scripts -->
         <script src="/scripts/index.js"></script>
         <script src="/scripts/project.js"></script>
     </head>
@@ -45,26 +44,29 @@
                 </div>
             </div>
 
-            <form action="/publish" method="post">
-                <input id="id" type="hidden" name="id">
-                <input id="song_name" type="text" class="form-control form-control-lg" name="name" placeholder="Song Title" />
-                <div id="user" class="jumbotron shadow">
-                    <h3>Users</h3>
-                    <div id="users">
-                        <h4>User 1</h4>
-                        <h4>User 2</h4>
-                        <h4>User 3</h4>
-                        <h4>User 4</h4>
-                        <h4>User 5</h4>
-                        <h4>User 6</h4>
-                        <h4>User 7</h4>
-                        <h4>User 8</h4>
+            <div id="fun">
+                <form action="/publish" method="post">
+                    <input id="id" type="hidden" name="id">
+                    <input id="owner" type="hidden" name="owner">
+                    <input id="song_name" type="text" class="form-control form-control-lg" name="name" placeholder="Song Title" />
+                    <div id="user" class="jumbotron shadow">
+                        <h3>Users</h3>
+                        <div id="users">
+                            <h4>User 1</h4>
+                            <h4>User 2</h4>
+                            <h4>User 3</h4>
+                            <h4>User 4</h4>
+                            <h4>User 5</h4>
+                            <h4>User 6</h4>
+                            <h4>User 7</h4>
+                            <h4>User 8</h4>
+                        </div>
                     </div>
-                </div>
-                <div id="midi" class="shadow">
-                </div>
-                <input id="publish" type="submit" class="btn btn-primary" value="Publish">
-            </form>
+                    <div id="midi" class="shadow">
+                    </div>
+                    <input id="publish" type="submit" class="btn btn-primary" value="Publish">
+                </form>
+            </div>
         </div>
 
         <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>

@@ -22,6 +22,11 @@ express()
   //.use('/images', express.static(path.join(__dirname, '/god-jammit/images')))
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true }))
+  .use(function(req, res, next) {
+     res.header("Access-Control-Allow-Origin", "*");
+     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+     next();
+  })
   //.set('views', path.join(__dirname, 'views'))
   //.engine('html', require('ejs').renderFile)
   //.set('view engine', 'ejs')
@@ -30,9 +35,16 @@ express()
   //.set('view engine', 'pug')
   //.get('/', (req, res) => res.sendFile('project.html'))
   //https://stackoverflow.com/questions/25270434/nodejs-how-to-render-static-html-with-express-4
-  .get('/project', (req, res) => res.redirect('project/' + uuid()))
-  .get('/project/:id', (req, res) => res.sendFile('project.html', {root: __dirname + '/god-jammit/'}))
-  .post('/search', (req, res) => res.redirect('search?search=' + req.body.search))
+  .post('/', function(req, res) {
+    if (JSON.parse(req.body.logged_in)) {
+        res.send('/' + uuid());
+    }
+    else {
+        res.send('/login.html')
+    }
+  })
+  .get('/:id', (req, res) => res.sendFile('project.html', {root: __dirname + '/god-jammit/'}))
+  .post('/search', (req, res) => res.redirect('search?query=' + req.body.search))
   .get('/search', function(req, res) {
       db.ref("projects").once('value').then(function(snap) {
               res.send(snap.val());
@@ -41,11 +53,12 @@ express()
   .post('/publish', function(req, res) {
       db.ref("projects/" + req.body.id).set({
           name: req.body.name,
-          owner: "someone",
+          owner: req.body.owner,
           collaborators: ["person1", "person2"],
           made_at: Date(),
           audio: "test.mp3"
       })
+      res.redirect('/')
   })
   //.post('/submit', function(req, res) {})
 //https://stackoverflow.com/questions/38541098/how-to-retrieve-data-from-firebase-database

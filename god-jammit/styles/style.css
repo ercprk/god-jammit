@@ -107,3 +107,8 @@ body, html {
     float: right;
     margin-top: 3vh;
 }
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.4;
+}
