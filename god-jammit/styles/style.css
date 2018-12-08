@@ -75,6 +75,40 @@ body, html {
     width: 40%;
 }
 
+#user {
+    float: left;
+    padding: 3% !important;
+    width: 25%;
+    height: 65vh;
+}
+
+#user h3 {
+    text-decoration: underline;
+}
+
+#user h3, #users {
+    text-align: center;
+}
+
 #inputs {
     margin: 10% 0;
+}
+
+#midi {
+    float: right;
+    width: 75%;
+    height: 65vh;
+    border: solid;
+    background-image: url("/images/midi.jpg");
+    background-size: cover;
+}
+
+#publish {
+    float: right;
+    margin-top: 3vh;
+}
+
+.disabled {
+    pointer-events: none;
+    opacity: 0.4;
 }

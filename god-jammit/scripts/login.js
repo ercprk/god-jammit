@@ -8,11 +8,9 @@ var uiConfig = {
         // tosUrl and privacyPolicyUrl accept either url string or a callback
         // function.
         // Terms of service url/callback.
-        //tosUrl: '<your-tos-url>',
+        tosUrl: 'https://termsfeed.com/terms-service/45f088ee0733ffab846ad1a76881c62f',
         // Privacy policy url/callback.
-        privacyPolicyUrl: function() {
-          window.location.assign('https://www.freeprivacypolicy.com/privacy/view/133042022e5d7b9218448a6f8e40b776');
-        }
+        privacyPolicyUrl: 'https://www.freeprivacypolicy.com/privacy/view/133042022e5d7b9218448a6f8e40b776'
       };
 
 // Initialize the FirebaseUI Widget using Firebase.

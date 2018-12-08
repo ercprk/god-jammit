@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path')
-const pug = require('pug')
+//const engines = require('consolidate');
+//const pug = require('pug')
 const uuid = require('uuid/v4')
 const bodyParser = require("body-parser");
 const PORT = process.env.PORT || 5000
@@ -11,23 +12,55 @@ admin.initializeApp({
   databaseURL: "https://god-jammit.firebaseio.com"
 });
 
+var db = admin.database();
+
 express()
-  .use(express.static(path.join(__dirname, 'god-jammit')))
+//https://stackoverflow.com/questions/18165138/res-sendfile-doesnt-serve-javascripts-well
+  .use(express.static(path.join(__dirname, '/god-jammit')))
+  //.use('/styles', express.static(path.join(__dirname, '/god-jammit/styles')))
+  //.use('/scripts', express.static(path.join(__dirname, '/god-jammit/scripts')))
+  //.use('/images', express.static(path.join(__dirname, '/god-jammit/images')))
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true }))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
-  .set('view engine', 'pug')
-  .get('/', (req, res) => res.render('god-jammit/index.html'))
-  .get('/project', (req, res) => res.redirect('project/' + uuid()))
-  .get('/project/:id', (req, res) => res.render('newProject', {title: "Test", message: "Under maintenance! :)"}))
-  .post('/search', (req, res) => res.redirect('search?search=' + req.body.search))
+  .use(function(req, res, next) {
+     res.header("Access-Control-Allow-Origin", "*");
+     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+     next();
+  })
+  //.set('views', path.join(__dirname, 'views'))
+  //.engine('html', require('ejs').renderFile)
+  //.set('view engine', 'ejs')
+  //.engine('html', engines.mustache)
+  //.set('view engine', 'html')
+  //.set('view engine', 'pug')
+  //.get('/', (req, res) => res.sendFile('project.html'))
+  //https://stackoverflow.com/questions/25270434/nodejs-how-to-render-static-html-with-express-4
+  .post('/', function(req, res) {
+    if (JSON.parse(req.body.logged_in)) {
+        res.send('/' + uuid());
+    }
+    else {
+        res.send('/login.html')
+    }
+  })
+  .get('/:id', (req, res) => res.sendFile('project.html', {root: __dirname + '/god-jammit/'}))
+  .post('/search', (req, res) => res.redirect('search?query=' + req.body.search))
   .get('/search', function(req, res) {
-      var collection = admin.database().ref("projects");
-      collection.once('value').then(function(snap) {
-              console.log(snap.val());
+      db.ref("projects").once('value').then(function(snap) {
+              res.send(snap.val());
           })
   })
+  .post('/publish', function(req, res) {
+      db.ref("projects/" + req.body.id).set({
+          name: req.body.name,
+          owner: req.body.owner,
+          collaborators: ["person1", "person2"],
+          made_at: Date(),
+          audio: "test.mp3"
+      })
+      res.redirect('/')
+  })
+  //.post('/submit', function(req, res) {})
 //https://stackoverflow.com/questions/38541098/how-to-retrieve-data-from-firebase-database
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 /*
