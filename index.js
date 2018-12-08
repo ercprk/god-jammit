@@ -1,8 +1,9 @@
 const express = require('express')
 const path = require('path')
 const pug = require('pug')
+const uuid = require('uuid/v4')
 const PORT = process.env.PORT || 5000
-var admin = require('firebase-admin');
+var admin = require('firebase-admin')
 /*
 var admin = require('firebase-admin');
 var serviceAccount = require("./god-jammit-firebase-adminsdk-w7yum-a61e9bd5f0.json/");
@@ -14,7 +15,8 @@ express()
   .set('view engine', 'ejs')
   .set('view engine', 'pug')
   .get('/', (req, res) => res.render('god-jammit/index.html'))
-  .get('/new_project', (req, res) => res.render('newProject', { title: "What's up", message: 'YEET!' }))
+  .get('/project', (req, res) => res.redirect("project/" + uuid()))
+  .get('/project/:id', (req, res) => res.render('newProject', {title: "Test", message: "Under maintenance! :)"}))
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 
 
@@ -39,7 +41,4 @@ var ref = db.ref("restricted_access/secret_document");
 ref.once("value", function(snapshot) {
   console.log(snapshot.val());
 });
-
-
-
 
