@@ -46,8 +46,9 @@ express()
   .post('/search', (req, res) => res.redirect('search?query=' + req.body.search))
   .get('/search', function(req, res) {
       db.ref("projects").once('value').then(function(snap) {
-              res.send(snap.val());
-          })
+              console.log(snap.val());
+      })
+      res.sendFile('search.html', {root: __dirname + '/god-jammit/'});
   })
   .post('/publish', function(req, res) {
       db.ref("projects/" + req.body.id).set({
