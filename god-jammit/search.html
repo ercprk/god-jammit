@@ -2,7 +2,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-        <title>New Project</title>
+        <title>Search</title>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <link rel="stylesheet" href="/styles/style.css" />
@@ -26,7 +26,6 @@
         <link type="text/css" rel="stylesheet" href="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.css" />
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="/scripts/index.js"></script>
-        <script src="/scripts/project.js"></script>
     </head>
     <body class="bg-light">
         <div class="container">
@@ -44,28 +43,20 @@
                 </div>
             </div>
 
-            <div id="fun">
-                <form action="/publish" method="post">
-                    <input id="id" type="hidden" name="id">
-                    <input id="owner" type="hidden" name="owner">
-                    <input id="song_name" type="text" class="form-control form-control-lg" name="name" placeholder="Song Title" />
-                    <div id="user" class="jumbotron shadow">
-                        <h3>Users</h3>
-                        <div id="users">
-                            <h4>User 1</h4>
-                            <h4>User 2</h4>
-                            <h4>User 3</h4>
-                            <h4>User 4</h4>
-                            <h4>User 5</h4>
-                            <h4>User 6</h4>
-                            <h4>User 7</h4>
-                            <h4>User 8</h4>
-                        </div>
+            <form action="/search" method="post">
+
+                <div class="input-group input-group-lg">
+                    <!-- Search box for the search engine. Will write script to search page at a later time-->
+                    <input type="text" class="form-control rounded" name="search" placeholder="Search for projects..." />
+                    <div class="input-group-append">
+                        <input type="submit" class="btn btn-dark" />
                     </div>
-                    <div id="midi" class="shadow">
-                    </div>
-                    <input id="publish" type="submit" class="btn btn-primary" value="Publish">
-                </form>
+                </div>
+
+            </form>
+
+            <div id="results">
+                <h1>results</h1>
             </div>
         </div>
 
