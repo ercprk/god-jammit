@@ -1,6 +1,7 @@
 const express = require('express')
 const path = require('path')
-const pug = require('pug')
+//const engines = require('consolidate');
+//const pug = require('pug')
 const uuid = require('uuid/v4')
 const bodyParser = require("body-parser");
 const PORT = process.env.PORT || 5000
@@ -12,15 +13,22 @@ admin.initializeApp({
 });
 
 express()
-  .use(express.static(path.join(__dirname, 'god-jammit')))
+  .use(express.static(path.join(__dirname, '/god-jammit')))
+  //.use('/styles', express.static(path.join(__dirname, '/god-jammit/styles')))
+  //.use('/scripts', express.static(path.join(__dirname, '/god-jammit/scripts')))
+  //.use('/images', express.static(path.join(__dirname, '/god-jammit/images')))
   .use(bodyParser.json())
   .use(bodyParser.urlencoded({ extended: true }))
-  .set('views', path.join(__dirname, 'views'))
-  .set('view engine', 'ejs')
+  //.set('views', path.join(__dirname, 'views'))
+  //.engine('html', require('ejs').renderFile)
+  //.set('view engine', 'ejs')
+  //.engine('html', engines.mustache)
+  //.set('view engine', 'html')
   //.set('view engine', 'pug')
-  .get('/', (req, res) => res.render('god-jammit/index.html'))
+  //.get('/', (req, res) => res.sendFile('project.html'))
+  //https://stackoverflow.com/questions/25270434/nodejs-how-to-render-static-html-with-express-4
   .get('/project', (req, res) => res.redirect('project/' + uuid()))
-  .get('/project/:id', (req, res) => res.render('god-jammit/project.html'))
+  .get('/project/:id', (req, res) => res.sendFile('project.html', {root: __dirname + '/god-jammit/'}))
   .post('/search', (req, res) => res.redirect('search?search=' + req.body.search))
   .get('/search', function(req, res) {
       var collection = admin.database().ref("projects");

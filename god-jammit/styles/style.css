@@ -41,7 +41,7 @@ body, html {
 
 #desc {
     color: white;
-    background-image: url("../images/midi.jpg");
+    background-image: url("/images/midi.jpg");
     background-size: cover;
     margin: 5% auto;
     width: 75%;
@@ -99,7 +99,7 @@ body, html {
     width: 75%;
     height: 65vh;
     border: solid;
-    background-image: url("../images/midi.jpg");
+    background-image: url("/images/midi.jpg");
     background-size: cover;
 }
 
