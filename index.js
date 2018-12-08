@@ -6,13 +6,32 @@ const bodyParser = require("body-parser");
 const PORT = process.env.PORT || 5000
 const admin = require('firebase-admin')
 const serviceAccount = require('./serviceAccountKey.json')
+
+//---------Initializes Socket.io instance---------//
+
+var server = require('http').Server(express);
+var io = require('socket.io')(server);
+
+// Function that emits message event to clients upon connection
+/*
+io.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+});
+*/
+
+
+//---------Initializes Firebase db instance---------//
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
   databaseURL: "https://god-jammit.firebaseio.com"
 });
-
 var db = admin.database();
 
+
+//----------Initializes Express instance-----------//
 express()
 //https://stackoverflow.com/questions/18165138/res-sendfile-doesnt-serve-javascripts-well
   .use(express.static(path.join(__dirname, '/god-jammit')))
@@ -64,16 +83,10 @@ express()
 //https://stackoverflow.com/questions/38541098/how-to-retrieve-data-from-firebase-database
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
 /*
-
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: "https://god-jammit.firebaseio.com"
-});
-
 var db = admin.database();
 var ref = db.ref("restricted_access/secret_document");
 ref.once("value", function(snapshot) {
   console.log(snapshot.val());
 });
-
 */
+
