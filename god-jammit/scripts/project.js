@@ -8,7 +8,7 @@ firebase.auth().onAuthStateChanged(function(user) {
         $('#owner').val(user.displayName);
         socket.emit('create', id[3], user.displayName);
         socket.on('alert', function(new_user) {
-            alert(new_user);
+            $('#users').append('<h4>' + new_user + '</h4>');
         });
     });
   }

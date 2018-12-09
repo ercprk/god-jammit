@@ -85,7 +85,7 @@ app.post('/publish', function(req, res) {
     socket.on('create', function(room, name) {
         socket.join(room);
         console.log(name + " has joined " + room);
-        socket.emit('alert', name + " has joined " + room);
+        io.in(room).emit('alert', name);
         socket.on('disconnect', function() {
             console.log(name + " has left " + room);
         });
