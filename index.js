@@ -105,8 +105,17 @@ app.post('/publish', function(req, res) {
             io.in(room).emit('send_note', note, key);
         });
         socket.on('record', function() {
-            console.log('record');
-            io.in(room).emit('recording');
+            var ready = true;
+            var names = Object.keys(rooms[room]);
+            for (var i = 0; i < names.length; i++) {
+                if (rooms[room][names[i]].ready == false) {
+                    socket.emit('not_ready');
+                    ready = false;
+                }
+            }
+            if (ready) {
+                io.in(room).emit('recording');
+            }
         });
         socket.on('ready', function() {
             if (!Object.keys(rooms[room]).includes(socket.id)) {

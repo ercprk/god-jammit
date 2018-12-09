@@ -71,9 +71,15 @@ socket.on('send_note', function(note, key) {
 });
 
 socket.on('recording', function() {
+    $('#record').html("Stop");
+    $('#record').removeClass("btn-danger");
+    $('#record').addClass("btn-secondary");
     $('#ready').html("Recording");
     $('#ready').removeClass("btn-warning");
     $('#ready').addClass("btn-danger");
+});
+socket.on('not_ready', function() {
+    alert("Not everyone is ready!");
 });
 socket.on('show_finish', function() {
     $('#ready').html("Finished!");
@@ -99,9 +105,6 @@ $(document).ready(function() {
     });
     $('#record').click(function() {
         if ($('#record').html() == "Record") {
-            $('#record').html("Stop");
-            $('#record').removeClass("btn-danger");
-            $('#record').addClass("btn-secondary");
             socket.emit('record');
         }
         else {
