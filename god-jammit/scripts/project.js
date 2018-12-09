@@ -4,11 +4,26 @@ var socket = io();
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
-    $(document).ready(function() {
-        $('#owner').val(user.displayName);
-        socket.emit('create', id[3], user.displayName);
-    });
+    socket.emit('create', id[3], user.displayName);
   }
+});
+
+socket.on('owner', function(owner) {
+    $('#owner').val(owner);
+});
+
+socket.on('collabs', function(users) {
+    var collabs = "";
+    var names = Object.keys(users);
+    for (var i = 0; i < names.length; i++) {
+        if (names != "owner") {
+            collabs += users[names[i]];
+            if (i != names.length - 1) {
+                collabs += ", ";
+            }
+        }
+    }
+    $('#collaborators').val(collabs);
 });
 
 socket.on('update', function(users) {
@@ -21,13 +36,13 @@ socket.on('update', function(users) {
 
 socket.on('alert', function(new_user) {
     $('#users').append('<h4>' + new_user + '</h4>');
+    var users = $('#collaborators');
 });
 
 socket.on('remove', function(users) {
     $('#users').empty();
     var names = Object.keys(users);
     for (var i = 0; i < names.length; i++) {
-        console.log('<h4>' + users[names[i]] + '</h4>');
         $('#users').append('<h4>' + users[names[i]] + '</h4>');
     }
 });

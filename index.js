@@ -72,7 +72,7 @@ app.post('/publish', function(req, res) {
       db.ref("projects/" + req.body.id).set({
           "name": req.body.name,
           "owner": req.body.owner,
-          "collaborators": "req.body.collaborators",
+          "collaborators": req.body.collaborators,
           "made_at": Date(),
           "audio": req.body.audio
       })
@@ -84,11 +84,16 @@ app.post('/publish', function(req, res) {
   io.on('connection', function(socket) {
     socket.on('create', function(room, name) {
         socket.join(room);
-        if (rooms[room] == null) {
+        if (rooms[room] == null || rooms[room] == {}) {
             rooms[room] = {};
+            rooms[room]["owner"] = name;
         }
-        rooms[room][socket.id] = name;
+        else {
+            rooms[room][socket.id] = name;
+        }
         console.log(name + " has joined " + room);
+        socket.emit('owner', rooms[room]['owner']);
+        socket.broadcast.to(room).emit('collabs', rooms[room]);
         socket.emit('update', rooms[room]);
         socket.broadcast.to(room).emit('alert', name);
         socket.on('disconnect', function() {
