@@ -9,18 +9,26 @@ const serviceAccount = require('./serviceAccountKey.json')
 
 //---------Initializes Socket.io instance---------//
 
+<<<<<<< HEAD
 var server = require('http').Server(express);
 //var io = require('socket.io')(server);
+=======
+
+var server = require('http').createServer(express());
+var io = require('socket.io')(server);
+>>>>>>> 9b56b6a6732b7250ed9636bee14e6794131777e4
+
 
 // Function that emits message event to clients upon connection
-/*
+
 io.on('connection', function (socket) {
   socket.emit('news', { hello: 'world' });
+  /*
   socket.on('my other event', function (data) {
     console.log(data);
   });
+  */
 });
-*/
 
 
 //---------Initializes Firebase db instance---------//
@@ -58,10 +66,15 @@ express()
     }
     else {
         res.send('/login')
-    }
+    } 
   })
   .get('/login', (req, res) => res.sendFile('login.html', {root: __dirname + '/god-jammit/'}))
-  .get('/:id', (req, res) => res.sendFile('project.html', {root: __dirname + '/god-jammit/'}))
+  .get('/:id', function(req, res) {
+    res.sendFile('project.html', {root: __dirname + '/god-jammit/'});
+
+
+
+    })
   .post('/search', function(req, res) {
       db.ref("projects").orderByChild("made_at").once('value', function(snapshot) {
         var results = {};
@@ -88,6 +101,7 @@ express()
   //.post('/submit', function(req, res) {})
 //https://stackoverflow.com/questions/38541098/how-to-retrieve-data-from-firebase-database
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
+<<<<<<< HEAD
 /*
 var db = admin.database();
 var ref = db.ref("restricted_access/secret_document");
@@ -95,3 +109,6 @@ ref.once("value", function(snapshot) {
   console.log(snapshot.val());
 });
 */
+=======
+
+>>>>>>> 9b56b6a6732b7250ed9636bee14e6794131777e4
