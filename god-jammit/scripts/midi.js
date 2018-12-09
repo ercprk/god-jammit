@@ -146,7 +146,7 @@ var active_voices = {};
       var active_voices[freq] = new oscillator;
       active_voices[freq].frequency.setTargetAtTime(freq, context.currentTime, 0);
       if (!isStarted) {
-        oscillator.start(0);
+        active_voices[freq].start(0);
         isStarted = true;
       } else {
         context.resume();
