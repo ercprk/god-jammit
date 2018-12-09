@@ -118,7 +118,10 @@ function getMIDIMessage(ev) {
     */
 }
 
+
+
 /*------- WEB AUDIO API --------*/
+/*
     var context = null;
     var oscillator = null;
     function getOrCreateContext() {
@@ -215,3 +218,70 @@ function getMIDIMessage(ev) {
         noteOff();
       }
     });
+*/
+
+/* --- Web audio API ver 2 --- */
+var keyboard = qwertyHancock({id: 'keyboard'});
+
+var context = new AudioContext();
+
+/* VCO */
+var vco = context.createOscillator();
+vco.type = vco.SINE;
+vco.frequency.value = this.frequency;
+vco.start(0);
+
+/* VCA */
+var vca = context.createGain();
+vca.gain.value = 0;
+
+/* Connections */
+vco.connect(vca);
+vca.connect(context.destination);
+
+active_voices = {};
+
+keyboard.keyDown(function (note, frequency) {
+  var voice = new Voice(frequency);
+    active_voices[note] = voice;
+    voice.start();
+});
+
+keyboard.keyUp(function (note, _) {
+    active_voices[note].stop();
+    delete active_voices[note];
+});
+
+// Parameters for voice //
+ var Voice = (function(context) {
+    function Voice(frequency){
+      this.frequency = frequency;
+    };
+
+    // Start function
+    Voice.prototype.start = function() {
+      /* VCO */
+      var vco = context.createOscillator();
+      vco.type = vco.SINE;
+      vco.frequency.value = this.frequency;
+
+      /* VCA */
+      var vca = context.createGain();
+      vca.gain.value = 0.3;
+
+      /* connections */
+      vco.connect(vca);
+      vca.connect(context.destination);
+
+      vco.start(0);
+    };
+
+    // Stop function
+    Voice.prototype.stop = function() {
+      this.oscillators.forEach(function(oscillator, _) {
+        oscillator.stop();
+      });
+    };
+
+    return Voice;
+})(context);
