@@ -87,17 +87,17 @@ app.post('/publish', function(req, res) {
         socket.join(room);
         if (rooms[room] == null || rooms[room] == {}) {
             rooms[room] = {};
-            rooms[room]["owner"] = name;
+            rooms[room]["owner"] = { "name": name, "ready": false };
         }
         else {
-            rooms[room][socket.id] = name;
+            rooms[room][socket.id] = { "name": name, "ready": false };
             socket.emit("no_pub");
         }
         console.log(name + " has joined " + room);
         socket.emit('owner', rooms[room]['owner']);
         socket.broadcast.to(room).emit('collabs', rooms[room]);
         socket.emit('update', rooms[room]);
-        socket.broadcast.to(room).emit('alert', name);
+        socket.broadcast.to(room).emit('alert', name, socket.id);
 
         // Recieves MIDI from a client and sends it to everyone including client
         socket.on('receive_note', function(note, key) {
@@ -109,7 +109,17 @@ app.post('/publish', function(req, res) {
             io.in(room).emit('recording');
         });
         socket.on('ready', function() {
-            io.in(room).emit('show_ready');
+            if (!Object.keys(rooms[room]).includes(socket.id)) {
+                rooms[room]["owner"].ready = true;
+                io.in(room).emit('show_ready', "owner");
+            }
+            else {
+                rooms[room][socket.id].ready = true;
+                io.in(room).emit('show_ready', socket.id);
+            }
+        });
+        socket.on('finish', function() {
+            io.in(room).emit('show_finish');
         });
 
         socket.on('disconnect', function() {

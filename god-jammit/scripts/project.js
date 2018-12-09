@@ -9,7 +9,7 @@ firebase.auth().onAuthStateChanged(function(user) {
 });
 
 socket.on('owner', function(owner) {
-    $('#owner').val(owner);
+    $('#owner').val(owner.name);
 });
 
 socket.on('collabs', function(users) {
@@ -17,7 +17,7 @@ socket.on('collabs', function(users) {
     var names = Object.keys(users);
     for (var i = 0; i < names.length; i++) {
         if (names != "owner") {
-            collabs += users[names[i]];
+            collabs += users[names[i]].name;
             if (i != names.length - 1) {
                 collabs += ", ";
             }
@@ -29,21 +29,25 @@ socket.on('collabs', function(users) {
 socket.on('update', function(users) {
     var names = Object.keys(users);
     for (var i = 0; i < names.length; i++) {
-        $('#users').append('<h4>' + users[names[i]] + '</h4>');
-        //$('#users').append('<div>' + users[names[i]] + '</div>');
+        $('#users').append('<h4 id=' + names[i] + '>' + users[names[i]].name + '</h4>');
+        if (users[names[i]].ready == true) {
+            $('#users').find('#' + names[i]).css('color', 'green');
+        }
     }
 });
 
-socket.on('alert', function(new_user) {
-    $('#users').append('<h4>' + new_user + '</h4>');
-    var users = $('#collaborators');
+socket.on('alert', function(new_user, id) {
+    $('#users').append('<h4 id=' + id + '>' + new_user + '</h4>');
 });
 
 socket.on('remove', function(users) {
     $('#users').empty();
     var names = Object.keys(users);
     for (var i = 0; i < names.length; i++) {
-        $('#users').append('<h4>' + users[names[i]] + '</h4>');
+        $('#users').append('<h4 id=' + names[i] + '>' + users[names[i]].name + '</h4>');
+        if (users[names[i]].ready == true) {
+            $('#users').find('#' + names[i]).css('color', 'green');
+        }
     }
 });
 
@@ -71,11 +75,14 @@ socket.on('recording', function() {
     $('#ready').removeClass("btn-warning");
     $('#ready').addClass("btn-danger");
 });
-/*
-socket.on('show_ready', function() {
-
+socket.on('show_finish', function() {
+    $('#ready').html("Finished!");
+    $('#ready').removeClass("btn-danger");
+    $('#ready').addClass("btn-primary");
 });
-*/
+socket.on('show_ready', function(id) {
+    $('#users').find('#' + id).css('color', 'green');
+});
 
 $(document).ready(function() {
     $(document).keypress(function(key) {
@@ -91,10 +98,16 @@ $(document).ready(function() {
         socket.emit('ready');
     });
     $('#record').click(function() {
-        $('#record').html("Stop");
-        $('#record').removeClass("btn-danger");
-        $('#record').addClass("btn-secondary");
-        socket.emit('record');
+        if ($('#record').html() == "Record") {
+            $('#record').html("Stop");
+            $('#record').removeClass("btn-danger");
+            $('#record').addClass("btn-secondary");
+            socket.emit('record');
+        }
+        else {
+            $('#record').hide();
+            socket.emit('finish');
+        }
     });
 });
 
