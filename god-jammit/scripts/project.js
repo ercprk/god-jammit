@@ -89,6 +89,13 @@ socket.on('show_finish', function() {
 socket.on('show_ready', function(id) {
     $('#users').find('#' + id).css('color', 'green');
 });
+socket.on('check', function() {
+    var check = confirm("Are you ready to publish?");
+    socket.emit('send', check);
+});
+socket.on('submit', function() {
+    $('#song_finish').submit();
+});
 
 $(document).ready(function() {
     $(document).keypress(function(key) {
@@ -113,6 +120,9 @@ $(document).ready(function() {
             $('#record').hide();
             socket.emit('finish');
         }
+    });
+    $('#publish').click(function() {
+        socket.emit('publish');
     });
 });
 

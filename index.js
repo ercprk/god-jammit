@@ -130,6 +130,15 @@ app.post('/publish', function(req, res) {
         socket.on('finish', function() {
             io.in(room).emit('show_finish');
         });
+        socket.on('publish', function() {
+            // compile MIDI
+            socket.emit('check');
+        });
+        socket.on('send', function(sure) {
+            if (sure) {
+                socket.emit('submit');
+            }
+        });
 
         socket.on('disconnect', function() {
             console.log(name + " has left " + room);
