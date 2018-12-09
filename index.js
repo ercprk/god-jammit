@@ -66,8 +66,8 @@ express()
     res.sendFile('project.html', {root: __dirname + '/god-jammit/'});
 
 
-    
-    }
+
+    })
   .post('/search', function(req, res) {
       //db.ref("projects").once('value').then(function(snap) {
         //  console.log(snap.val());
