@@ -59,10 +59,15 @@ express()
     }
     else {
         res.send('/login')
-    }
+    } 
   })
   .get('/login', (req, res) => res.sendFile('login.html', {root: __dirname + '/god-jammit/'}))
-  .get('/:id', (req, res) => res.sendFile('project.html', {root: __dirname + '/god-jammit/'}))
+  .get('/:id', function(req, res) {
+    res.sendFile('project.html', {root: __dirname + '/god-jammit/'});
+
+
+    
+    }
   .post('/search', function(req, res) {
       //db.ref("projects").once('value').then(function(snap) {
         //  console.log(snap.val());
