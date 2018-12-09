@@ -98,6 +98,12 @@ app.post('/publish', function(req, res) {
         socket.broadcast.to(room).emit('collabs', rooms[room]);
         socket.emit('update', rooms[room]);
         socket.broadcast.to(room).emit('alert', name);
+
+        // Recieves MIDI from a client and sends it to everyone including client
+        socket.on('receive_note', function(note) {
+            socket.broadcast.to(room).emit('send_note', note);
+        });
+
         socket.on('disconnect', function() {
             console.log(name + " has left " + room);
             if (!Object.keys(rooms[room]).includes(socket.id) && Object.keys(rooms[room]).length != 1) {
