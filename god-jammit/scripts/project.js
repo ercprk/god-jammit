@@ -29,7 +29,6 @@ socket.on('collabs', function(users) {
 socket.on('update', function(users) {
     var names = Object.keys(users);
     for (var i = 0; i < names.length; i++) {
-        console.log('<h4>' + users[names[i]] + '</h4>');
         $('#users').append('<h4>' + users[names[i]] + '</h4>');
     }
 });
