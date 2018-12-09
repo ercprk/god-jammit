@@ -17,6 +17,10 @@ function getMIDIMessage(ev) {
     socket.emit('receive_note', "hi Jackie");
     console.log(ev);
     console.log('emitted');
+
+
+    
+
     /*
     socket.emit('receive_note', function (){
         console.log ('inside socket emit function');
@@ -114,3 +118,103 @@ function getMIDIMessage(ev) {
     }
     */
 }
+<<<<<<< HEAD
+=======
+
+/*------- WEB AUDIO API --------*/
+    var context = null;
+    var oscillator = null;
+    function getOrCreateContext() {
+      if (!context) {
+        context = new AudioContext();
+        oscillator = context.createOscillator();
+        oscillator.connect(context.destination);
+      }
+      return context;
+    }
+    const list = document.getElementById('midi-list');
+    const debugEl = document.getElementById('debug');
+
+    let isStarted = false;
+
+    function noteOn(midiNote) {
+      getOrCreateContext();
+      const freq = Math.pow(2, (midiNote-69)/12)*440;
+      oscillator.frequency.setTargetAtTime(freq, context.currentTime, 0);
+      if (!isStarted) {
+        oscillator.start(0);
+        isStarted = true;
+      } else {
+        context.resume();
+      }
+    }
+
+    function noteOff() {
+      context.suspend();
+    }
+
+    function connectToDevice(device) {
+      console.log('Connecting to device', device);
+      device.onmidimessage = function(m) {
+        const [command, key, velocity] = m.data;
+        if (command === 145) {
+          debugEl.innerText = 'KEY UP: ' + key;
+          noteOn(key);
+        } else if(command === 129) {
+          debugEl.innerText = 'KEY DOWN';
+          noteOff();
+        }
+      }
+    }
+
+    function replaceElements(inputs) {
+      while(list.firstChild) {
+        list.removeChild(list.firstChild)
+      }
+      const elements = inputs.map(e => {
+            console.log(e);
+            const el = document.createElement('li')
+            el.innerText = `${e.name} (${e.manufacturer})`;
+            el.addEventListener('click', connectToDevice.bind(null, e));
+            return el;
+        });
+
+        elements.forEach(e => list.appendChild(e));
+    }
+
+    navigator.requestMIDIAccess()
+        .then(function(access) {
+          console.log('access', access);
+          replaceElements(Array.from(access.inputs.values()));
+          access.onstatechange = function(e) {
+            replaceElements(Array.from(this.inputs.values()));
+          }
+
+        })
+
+
+    // Below is keyboard emulation for C4-C5 q-i keys
+    var emulatedKeys = {
+      q: 60,
+      w: 62,
+      e: 64,
+      r: 65,
+      t: 67,
+      y: 69,
+      u: 71,
+      i: 72,
+    }
+
+    document.addEventListener('keydown', function(e) {
+      console.log(e);
+      if (emulatedKeys.hasOwnProperty(e.key)) {
+        noteOn(emulatedKeys[e.key]);
+      }
+    });
+
+    document.addEventListener('keyup', function(e) {
+      if (emulatedKeys.hasOwnProperty(e.key)) {
+        noteOff();
+      }
+    });
+>>>>>>> f09d659bfa4c9de246ec3cd0b4cf4711ba0a9f38
