@@ -30,6 +30,23 @@
             //socket.emit('my other event', { my: 'data' });
             });
           */
+        
+        navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
+
+        function onMIDISuccess(midiAccess) {
+             for (var input of midiAccess.inputs.values()){
+                input.onmidimessage = getMIDIMessage;     
+            }
+        }
+
+        function getMIDIMessage(midiMessage) {
+            //Send data here
+            console.log(midiMessage);
+        }
+
+        function onMIDIFailure() {
+            console.log('Could not access your MIDI devices.');
+        }
 
         </script>
         <script src="https://cdn.firebase.com/libs/firebaseui/3.4.1/firebaseui.js"></script>

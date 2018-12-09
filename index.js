@@ -9,7 +9,7 @@ const serviceAccount = require('./serviceAccountKey.json')
 
 //---------Initializes Socket.io instance---------//
 
-/*
+
 var server = require('http').Server(express);
 var io = require('socket.io')(server);
 
