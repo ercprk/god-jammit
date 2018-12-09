@@ -10,7 +10,7 @@ const serviceAccount = require('./serviceAccountKey.json')
 //---------Initializes Socket.io instance---------//
 
 var server = require('http').Server(express);
-var io = require('socket.io')(server);
+//var io = require('socket.io')(server);
 
 // Function that emits message event to clients upon connection
 /*
@@ -63,19 +63,25 @@ express()
   .get('/login', (req, res) => res.sendFile('login.html', {root: __dirname + '/god-jammit/'}))
   .get('/:id', (req, res) => res.sendFile('project.html', {root: __dirname + '/god-jammit/'}))
   .post('/search', function(req, res) {
-      //db.ref("projects").once('value').then(function(snap) {
-        //  console.log(snap.val());
-      //});
+      db.ref("projects").orderByChild("made_at").once('value', function(snapshot) {
+        var results = {};
+        var songs = snapshot.val();
+        var keys = Object.keys(songs);
+        for (var i = 0; i < keys.length; i++) {
+            if (songs[keys[i]]["name"].includes(req.body.search))
+                results[keys[i]] = songs[keys[i]];
+        }
+        res.render('search', {"result": req.body.search, "songs": results});
+      });
       //res.sendFile('search.html', {root: __dirname + '/god-jammit/'});
-      res.render('search', {result: req.body.search});
   })
   .post('/publish', function(req, res) {
       db.ref("projects/" + req.body.id).set({
-          name: req.body.name,
-          owner: req.body.owner,
-          collaborators: ["person1", "person2"],
-          made_at: Date(),
-          audio: "test.mp3"
+          "name": req.body.name,
+          "owner": req.body.owner,
+          "collaborators": "req.body.collaborators",
+          "made_at": Date(),
+          "audio": req.body.audio
       })
       res.redirect('/')
   })
@@ -89,4 +95,3 @@ ref.once("value", function(snapshot) {
   console.log(snapshot.val());
 });
 */
-
