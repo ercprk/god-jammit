@@ -140,6 +140,7 @@ function getMIDIMessage(ev) {
 
     function noteOn(midiNote) {
       getOrCreateContext();
+      var frequency = Math.pow(2, (midiNote-69)/12)*440;
       var voice = new Voice(frequency);
       active_voices[note] = voice;
       voice.start();
