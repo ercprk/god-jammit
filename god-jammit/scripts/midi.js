@@ -5,6 +5,7 @@ navigator.requestMIDIAccess()
 function onMIDISuccess(midiAccess) {
      for (var input of midiAccess.inputs.values()){
         input.onmidimessage = getMIDIMessage;
+        console.log('just played a note');
         socket.emit('receive_note', input.onmidimessage);
     }
 }
