@@ -99,10 +99,11 @@ app.post('/publish', function(req, res) {
         socket.broadcast.to(room).emit('alert', name);
         socket.on('disconnect', function() {
             console.log(name + " has left " + room);
-            if (!Object.keys(rooms[room]).includes(socket.id)) {
+            if (!Object.keys(rooms[room]).includes(socket.id) && Object.keys(rooms[room]).length != 1) {
                 console.log("Owner has left!");
                 var clients = io.sockets.adapter.rooms[room].sockets;
                 socket.broadcast.to(room).emit('leave');
+                rooms[room] = null;
             }
             else {
                 delete rooms[room][socket.id];
