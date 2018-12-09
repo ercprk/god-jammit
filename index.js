@@ -80,6 +80,7 @@ app.post('/publish', function(req, res) {
   });
   //.post('/submit', function(req, res) {})
   var rooms = {};
+  var users;
   // Function that emits message event to clients upon connection
   io.on('connection', function(socket) {
     socket.on('create', function(room, name) {
@@ -103,7 +104,6 @@ app.post('/publish', function(req, res) {
                 console.log("Owner has left!");
                 var clients = io.sockets.adapter.rooms[room].sockets;
                 socket.broadcast.to(room).emit('leave');
-                rooms[room] = null;
             }
             else {
                 delete rooms[room][socket.id];
