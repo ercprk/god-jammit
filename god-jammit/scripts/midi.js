@@ -121,7 +121,7 @@ function getMIDIMessage(ev) {
 
 
 /*------- WEB AUDIO API --------*/
-/*
+
     var context = null;
     var oscillator = null;
     function getOrCreateContext() {
@@ -141,11 +141,12 @@ function getMIDIMessage(ev) {
 
     function noteOn(midiNote) {
       getOrCreateContext();
+      /*
       var frequency = Math.pow(2, (midiNote-69)/12)*440;
       var voice = new Voice(frequency);
       active_voices[note] = voice;
-      voice.start();
-      /---- orig start ---/
+      voice.start();*/
+      //---- orig start ---/
       const freq = Math.pow(2, (midiNote-69)/12)*440;
       oscillator.frequency.setTargetAtTime(freq, context.currentTime, 0);
       if (!isStarted) {
@@ -154,13 +155,15 @@ function getMIDIMessage(ev) {
       } else {
         context.resume();
       }
-      /---- orig end ----/
+      //---- orig end ----/
     }
 
     function noteOff() {
+      /*
       active_voices[note].stop();
       delete active_voices[note];
-      //context.suspend();
+      */
+      context.suspend();
     }
 
     function connectToDevice(device) {
@@ -228,13 +231,13 @@ function getMIDIMessage(ev) {
         noteOff();
       }
     });
-*/
+
 
 
 
 
 /* --- Web audio API ver 2 --- */
-
+/*
 var keyboard = qwertyHancock({id: 'keyboard'});
 
 var context = new AudioContext();
@@ -253,17 +256,17 @@ keyboard.keyUp(function (note, _) {
 });
 
 
-/* VCO */
+/--VCO --/
 var vco = context.createOscillator();
 vco.type = vco.SINE;
 vco.frequency.value = this.frequency;
 vco.start(0);
 
-/* VCA */
+/---CA--/
 var vca = context.createGain();
 vca.gain.value = 0;
 
-/* Connections */
+/--Connections--/
 vco.connect(vca);
 vca.connect(context.destination);
 
@@ -275,16 +278,16 @@ vca.connect(context.destination);
 
     // Start function
     Voice.prototype.start = function() {
-      /* VCO */
+      /- VCO -/
       var vco = context.createOscillator();
       vco.type = vco.SINE;
       vco.frequency.value = this.frequency;
 
-      /* VCA */
+      /- VCA -/
       var vca = context.createGain();
       vca.gain.value = 0.3;
 
-      /* connections */
+      /- connections -/
       vco.connect(vca);
       vca.connect(context.destination);
 
@@ -300,3 +303,4 @@ vca.connect(context.destination);
 
     return Voice;
 })(context);
+*/
