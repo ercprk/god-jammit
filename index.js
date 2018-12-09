@@ -82,13 +82,16 @@ app.post('/publish', function(req, res) {
 
   // Function that emits message event to clients upon connection
   io.on('connection', function(socket) {
-    console.log('a user connected');
-    socket.on('disconnect', function(){
-        console.log('user disconnected');
+    socket.on('create', function(room, name) {
+        socket.join(room);
+        console.log(name + " has joined " + room);
+        socket.emit('alert', name + " has joined " + room);
+        socket.on('disconnect', function() {
+            console.log(name + " has left " + room);
+        });
     });
   });
 
-  io.in('test').emit('message', 'hello');
 //https://stackoverflow.com/questions/38541098/how-to-retrieve-data-from-firebase-database
 server.listen(PORT, () => console.log(`Listening on ${ PORT }`));
 /*

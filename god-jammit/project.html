@@ -23,9 +23,6 @@
           };
           firebase.initializeApp(config);
 
-          // Socket.io example
-          var socket = io();
-
         navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
 
         function onMIDISuccess(midiAccess) {
@@ -74,7 +71,7 @@ navigator.requestMIDIAccess()
 function onMIDISuccess(midiAccess) {
      for (var input of midiAccess.inputs.values())
         input.onmidimessage = getMIDIMessage;
-    
+
 }
 
 function onMIDIFailure() {
@@ -92,7 +89,7 @@ function getMIDIMessage(message) {
             if (velocity > 0) {
 
 //NOTE IS PLAYED
-    
+
     MIDI.loadPlugin({
         soundfontUrl: "./soundfont/",
         instrument: "acoustic_grand_piano",
@@ -100,16 +97,16 @@ function getMIDIMessage(message) {
             console.log(state, progress);
         },
         onsuccess: function() {
-            
+
             // play the note
             MIDI.setVolume(0, 127);
             MIDI.noteOn(0, note, velocity, delay);
-        
+
         }
     });
 
 
-            } 
+            }
 //NOT IS RELEASED
             else {
                window.onload = function () {
@@ -120,7 +117,7 @@ function getMIDIMessage(message) {
             console.log(state, progress);
         },
         onsuccess: function() {
-    
+
             // play the note
             MIDI.setVolume(0, 127);
 
@@ -184,14 +181,6 @@ function getMIDIMessage(message) {
                     <div id="user" class="jumbotron shadow">
                         <h3>Users</h3>
                         <div id="users">
-                            <h4>User 1</h4>
-                            <h4>User 2</h4>
-                            <h4>User 3</h4>
-                            <h4>User 4</h4>
-                            <h4>User 5</h4>
-                            <h4>User 6</h4>
-                            <h4>User 7</h4>
-                            <h4>User 8</h4>
                         </div>
                     </div>
                     <div id="midi" class="shadow">

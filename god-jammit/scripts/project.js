@@ -1,10 +1,15 @@
 //https://stackoverflow.com/questions/31174698/unable-to-prevent-an-input-from-submitting-when-press-the-enter-key-on-it
 var id = document.URL.split('/');
+var socket = io();
 
 firebase.auth().onAuthStateChanged(function(user) {
   if (user) {
     $(document).ready(function() {
         $('#owner').val(user.displayName);
+        socket.emit('create', id[3], user.displayName);
+        socket.on('alert', function(new_user) {
+            alert(new_user);
+        });
     });
   }
 });
