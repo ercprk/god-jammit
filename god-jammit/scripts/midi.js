@@ -17,7 +17,9 @@ function onMIDIFailure() {
 
 function getMIDIMessage(ev) {
     console.log(ev);
-    socket.emit('receive_note', "hi Jackie");
+    socket.emit('receive_note', function (){
+        console.log ('inside socket emit function');
+        return "hi jackie";});
     /*
     var cmd = ev.data[0] >> 4;
     var channel = ev.data[0] & 0xf;
