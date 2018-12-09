@@ -3,9 +3,10 @@ navigator.requestMIDIAccess()
     .then(onMIDISuccess, onMIDIFailure);
 
 function onMIDISuccess(midiAccess) {
-     for (var input of midiAccess.inputs.values())
+     for (var input of midiAccess.inputs.values()){
         input.onmidimessage = getMIDIMessage;
-
+        socket.emit('receive_note', input.onmidimessage);
+    }
 }
 
 function onMIDIFailure() {
