@@ -9,14 +9,8 @@ const serviceAccount = require('./serviceAccountKey.json')
 
 //---------Initializes Socket.io instance---------//
 
-<<<<<<< HEAD
-var server = require('http').Server(express);
-//var io = require('socket.io')(server);
-=======
-
 var server = require('http').createServer(express());
 var io = require('socket.io')(server);
->>>>>>> 9b56b6a6732b7250ed9636bee14e6794131777e4
 
 
 // Function that emits message event to clients upon connection
@@ -101,7 +95,7 @@ express()
   //.post('/submit', function(req, res) {})
 //https://stackoverflow.com/questions/38541098/how-to-retrieve-data-from-firebase-database
   .listen(PORT, () => console.log(`Listening on ${ PORT }`))
-<<<<<<< HEAD
+
 /*
 var db = admin.database();
 var ref = db.ref("restricted_access/secret_document");
@@ -109,6 +103,3 @@ ref.once("value", function(snapshot) {
   console.log(snapshot.val());
 });
 */
-=======
-
->>>>>>> 9b56b6a6732b7250ed9636bee14e6794131777e4
