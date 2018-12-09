@@ -141,7 +141,7 @@ var active_voices = {};
 
     function noteOn(midiNote) {
       getOrCreateContext();
-      
+      /*
       var freq = Math.pow(2, (midiNote-69)/12)*440;
       var active_voices[freq] = new oscillator;
       active_voices[freq].frequency.setTargetAtTime(freq, context.currentTime, 0);
@@ -151,10 +151,10 @@ var active_voices = {};
       } else {
         context.resume();
       }
+      */
 
       //---- orig start ---//
-      /*
-      
+  
       const freq = Math.pow(2, (midiNote-69)/12)*440;
 
       oscillator.frequency.setTargetAtTime(freq, context.currentTime, 0);
@@ -164,7 +164,6 @@ var active_voices = {};
       } else {
         context.resume();
       }
-      */
       //---- orig end ----//\
     }
 
@@ -174,12 +173,13 @@ var active_voices = {};
       delete active_voices[note];
       */
       var freq = Math.pow(2, (midiNote-69)/12)*440;
-      /* writing for loop function for each */
+      /* 
       forn each(var osc in active_voices) {
         if (osc.frequency == freq)
           osc.oscillator.stop(0);
       }
-      //context.suspend();
+      */
+      context.suspend();
     }
 
     function connectToDevice(device) {
