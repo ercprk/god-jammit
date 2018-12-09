@@ -30,6 +30,7 @@ socket.on('update', function(users) {
     var names = Object.keys(users);
     for (var i = 0; i < names.length; i++) {
         $('#users').append('<h4>' + users[names[i]] + '</h4>');
+        //$('#users').append('<div>' + users[names[i]] + '</div>');
     }
 });
 
@@ -52,6 +53,7 @@ socket.on('leave', function() {
 
 socket.on('no_pub', function() {
     $('#publish').hide();
+    $('#record').hide();
 });
 
 socket.on('send_note', function(note, key) {
@@ -64,6 +66,17 @@ socket.on('send_note', function(note, key) {
         noteOff();
 });
 
+socket.on('recording', function() {
+    $('#ready').html("Recording");
+    $('#ready').removeClass("btn-warning");
+    $('#ready').addClass("btn-danger");
+});
+/*
+socket.on('show_ready', function() {
+
+});
+*/
+
 $(document).ready(function() {
     $(document).keypress(function(key) {
         if (key.keyCode == 13) {
@@ -75,6 +88,13 @@ $(document).ready(function() {
         $('#ready').html("Waiting");
         $('#ready').removeClass("btn-success");
         $('#ready').addClass("btn-warning");
+        socket.emit('ready');
+    });
+    $('#record').click(function() {
+        $('#record').html("Stop");
+        $('#record').removeClass("btn-danger");
+        $('#record').addClass("btn-secondary");
+        socket.emit('record');
     });
 });
 

@@ -104,6 +104,13 @@ app.post('/publish', function(req, res) {
             console.log("note played");
             io.in(room).emit('send_note', note, key);
         });
+        socket.on('record', function() {
+            console.log('record');
+            io.in(room).emit('recording');
+        });
+        socket.on('ready', function() {
+            io.in(room).emit('show_ready');
+        });
 
         socket.on('disconnect', function() {
             console.log(name + " has left " + room);

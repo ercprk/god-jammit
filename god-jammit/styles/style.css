@@ -82,6 +82,10 @@ body, html {
     height: 65vh;
 }
 
+#user, #users {
+    overflow: auto;
+}
+
 #user h3 {
     text-decoration: underline;
 }
@@ -103,13 +107,16 @@ body, html {
     background-size: cover;
 }
 
-#publish {
+#publish, #record {
     float: right;
     margin-top: 3vh;
 }
 
+#publish {
+    margin-left: 1%;
+}
+
 #ready {
-    float: left;
     margin-top: 3vh;
 }
 
@@ -153,8 +160,4 @@ body, html {
 
 #play img {
     height: 10vh;
-}
-
-#users {
-    overflow: auto;
 }
