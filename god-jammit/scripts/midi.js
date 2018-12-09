@@ -121,6 +121,7 @@ function getMIDIMessage(ev) {
 
 
 /*------- WEB AUDIO API --------*/
+
     var context = null;
     var oscillator = null;
     function getOrCreateContext() {
@@ -140,10 +141,12 @@ function getMIDIMessage(ev) {
 
     function noteOn(midiNote) {
       getOrCreateContext();
+      /*
+      var frequency = Math.pow(2, (midiNote-69)/12)*440;
       var voice = new Voice(frequency);
       active_voices[note] = voice;
-      voice.start();
-      /*
+      voice.start();*/
+      //---- orig start ---/
       const freq = Math.pow(2, (midiNote-69)/12)*440;
       oscillator.frequency.setTargetAtTime(freq, context.currentTime, 0);
       if (!isStarted) {
@@ -152,13 +155,15 @@ function getMIDIMessage(ev) {
       } else {
         context.resume();
       }
-      */
+      //---- orig end ----/
     }
 
     function noteOff() {
+      /*
       active_voices[note].stop();
       delete active_voices[note];
-      //context.suspend();
+      */
+      context.suspend();
     }
 
     function connectToDevice(device) {
@@ -228,53 +233,6 @@ function getMIDIMessage(ev) {
     });
 
 
-/* VCO */
-var vco = context.createOscillator();
-vco.type = vco.SINE;
-vco.frequency.value = this.frequency;
-vco.start(0);
-
-/* VCA */
-var vca = context.createGain();
-vca.gain.value = 0;
-
-/* Connections */
-vco.connect(vca);
-vca.connect(context.destination);
-
-    // Parameters for voice //
- var Voice = (function(context) {
-    function Voice(frequency){
-      this.frequency = frequency;
-    };
-
-    // Start function
-    Voice.prototype.start = function() {
-      /* VCO */
-      var vco = context.createOscillator();
-      vco.type = vco.SINE;
-      vco.frequency.value = this.frequency;
-
-      /* VCA */
-      var vca = context.createGain();
-      vca.gain.value = 0.3;
-
-      /* connections */
-      vco.connect(vca);
-      vca.connect(context.destination);
-
-      vco.start(0);
-    };
-
-    // Stop function
-    Voice.prototype.stop = function() {
-      this.oscillators.forEach(function(oscillator, _) {
-        oscillator.stop();
-      });
-    };
-
-    return Voice;
-})(context);
 
 
 
@@ -296,4 +254,53 @@ keyboard.keyUp(function (note, _) {
     active_voices[note].stop();
     delete active_voices[note];
 });
+
+
+/--VCO --/
+var vco = context.createOscillator();
+vco.type = vco.SINE;
+vco.frequency.value = this.frequency;
+vco.start(0);
+
+/---CA--/
+var vca = context.createGain();
+vca.gain.value = 0;
+
+/--Connections--/
+vco.connect(vca);
+vca.connect(context.destination);
+
+    // Parameters for voice //
+ var Voice = (function(context) {
+    function Voice(frequency){
+      this.frequency = frequency;
+    };
+
+    // Start function
+    Voice.prototype.start = function() {
+      /- VCO -/
+      var vco = context.createOscillator();
+      vco.type = vco.SINE;
+      vco.frequency.value = this.frequency;
+
+      /- VCA -/
+      var vca = context.createGain();
+      vca.gain.value = 0.3;
+
+      /- connections -/
+      vco.connect(vca);
+      vca.connect(context.destination);
+
+      vco.start(0);
+    };
+
+    // Stop function
+    Voice.prototype.stop = function() {
+      this.oscillators.forEach(function(oscillator, _) {
+        oscillator.stop();
+      });
+    };
+
+    return Voice;
+})(context);
 */
