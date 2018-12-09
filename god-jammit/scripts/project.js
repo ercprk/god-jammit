@@ -55,7 +55,8 @@ socket.on('no_pub', function() {
 });
 
 socket.on('send_note', function(note) {
-    alert(note);
+    console.log("got note");
+    noteOn(note);
 });
 
 $(document).ready(function() {

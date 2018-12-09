@@ -14,12 +14,12 @@ function onMIDIFailure() {
 
 
 function getMIDIMessage(ev) {
-    socket.emit('receive_note', "hi Jackie");
+    socket.emit('receive_note', ev);
     console.log(ev);
     console.log('emitted');
 
 
-    
+
 
     /*
     socket.emit('receive_note', function (){
@@ -118,6 +118,7 @@ function getMIDIMessage(ev) {
     }
     */
 }
+
 /*------- WEB AUDIO API --------*/
     var context = null;
     var oscillator = null;
@@ -165,6 +166,7 @@ function getMIDIMessage(ev) {
     }
 
     function replaceElements(inputs) {
+        // cannot read firstChild
       while(list.firstChild) {
         list.removeChild(list.firstChild)
       }
