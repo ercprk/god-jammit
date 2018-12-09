@@ -8,6 +8,10 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 });
 
+socket.on('join', function() {
+    alert("Welcome!");
+});
+
 socket.on('owner', function(owner) {
     $('#owner').val(owner);
 });
