@@ -7,11 +7,29 @@ firebase.auth().onAuthStateChanged(function(user) {
     $(document).ready(function() {
         $('#owner').val(user.displayName);
         socket.emit('create', id[3], user.displayName);
-        socket.on('alert', function(new_user) {
-            $('#users').append('<h4>' + new_user + '</h4>');
-        });
     });
   }
+});
+
+socket.on('update', function(users) {
+    var names = Object.keys(users);
+    for (var i = 0; i < names.length; i++) {
+        console.log('<h4>' + users[names[i]] + '</h4>');
+        $('#users').append('<h4>' + users[names[i]] + '</h4>');
+    }
+});
+
+socket.on('alert', function(new_user) {
+    $('#users').append('<h4>' + new_user + '</h4>');
+});
+
+socket.on('remove', function(users) {
+    $('#users').empty();
+    var names = Object.keys(users);
+    for (var i = 0; i < names.length; i++) {
+        console.log('<h4>' + users[names[i]] + '</h4>');
+        $('#users').append('<h4>' + users[names[i]] + '</h4>');
+    }
 });
 
 $(document).ready(function() {

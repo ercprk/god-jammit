@@ -79,15 +79,22 @@ app.post('/publish', function(req, res) {
       res.redirect('/')
   });
   //.post('/submit', function(req, res) {})
-
+  var rooms = {};
   // Function that emits message event to clients upon connection
   io.on('connection', function(socket) {
     socket.on('create', function(room, name) {
         socket.join(room);
+        if (rooms[room] == null) {
+            rooms[room] = {};
+        }
+        rooms[room][socket.id] = name;
         console.log(name + " has joined " + room);
-        io.in(room).emit('alert', name);
+        socket.emit('update', rooms[room]);
+        socket.broadcast.to(room).emit('alert', name);
         socket.on('disconnect', function() {
             console.log(name + " has left " + room);
+            delete rooms[room][socket.id];
+            io.in(room).emit('remove', rooms[room]);
         });
     });
   });
