@@ -127,8 +127,10 @@ function getMIDIMessage(ev) {
     function getOrCreateContext() {
       if (!context) {
         context = new AudioContext();
+        /*
         oscillator = context.createOscillator();
         oscillator.connect(context.destination);
+        */
       }
       return context;
     }
@@ -143,7 +145,7 @@ var active_voices = {};
       getOrCreateContext();
       
       var freq = Math.pow(2, (midiNote-69)/12)*440;
-      var active_voices[freq] = new oscillator;
+      var active_voices[freq] = context.createOscillator();
       active_voices[freq].connect(context.destination);
       active_voices[freq].frequency.setTargetAtTime(freq, context.currentTime, 0);
       if (!isStarted) {
