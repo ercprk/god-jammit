@@ -98,10 +98,12 @@ $(document).ready(function() {
     });
     $('#id').val(id[3]);
     $('#ready').click(function() {
-        $('#ready').html("Waiting");
-        $('#ready').removeClass("btn-success");
-        $('#ready').addClass("btn-warning");
-        socket.emit('ready');
+        if ($('#ready').html() == "Ready") {
+            $('#ready').html("Waiting");
+            $('#ready').removeClass("btn-success");
+            $('#ready').addClass("btn-warning");
+            socket.emit('ready');
+        }
     });
     $('#record').click(function() {
         if ($('#record').html() == "Record") {
