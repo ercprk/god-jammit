@@ -127,10 +127,8 @@ function getMIDIMessage(ev) {
     function getOrCreateContext() {
       if (!context) {
         context = new AudioContext();
-        /*
         oscillator = context.createOscillator();
         oscillator.connect(context.destination);
-        */
       }
       return context;
     }
@@ -144,6 +142,7 @@ var active_voices = {};
     function noteOn(midiNote) {
       getOrCreateContext();
       
+      /*
       var freq = Math.pow(2, (midiNote-69)/12)*440;
       var active_voices[freq] = context.createOscillator();
       active_voices[freq].connect(context.destination);
@@ -154,10 +153,9 @@ var active_voices = {};
       } else {
         context.resume();
       }
-      
+      */
 
-      //---- orig start ---//
-      /*
+      //---- orig start ---//      /*
   
       const freq = Math.pow(2, (midiNote-69)/12)*440;
 
@@ -168,7 +166,7 @@ var active_voices = {};
       } else {
         context.resume();
       }
-      *///---- orig end ----//\
+      //---- orig end ----//\
     }
 
     function noteOff(midiNote) {
