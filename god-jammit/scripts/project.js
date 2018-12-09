@@ -55,7 +55,7 @@ socket.on('no_pub', function() {
 });
 
 socket.on('send_note', function(note) {
-    alert("play " + note);
+    alert(note);
 });
 
 $(document).ready(function() {

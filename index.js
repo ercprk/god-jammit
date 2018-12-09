@@ -101,7 +101,7 @@ app.post('/publish', function(req, res) {
 
         // Recieves MIDI from a client and sends it to everyone including client
         socket.on('receive_note', function(note) {
-            socket.broadcast.to(room).emit('send_note', note);
+            io.in(room).emit('send_note', note);
         });
 
         socket.on('disconnect', function() {

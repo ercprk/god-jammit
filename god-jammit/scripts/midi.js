@@ -1,4 +1,3 @@
-
 navigator.requestMIDIAccess()
     .then(onMIDISuccess, onMIDIFailure);
 
@@ -15,8 +14,8 @@ function onMIDIFailure() {
 
 
 function getMIDIMessage(ev) {
-    console.log(ev);
     socket.emit('receive_note', "hi Jackie");
+    console.log(ev);
     console.log('emitted');
     /*
     socket.emit('receive_note', function (){
