@@ -94,7 +94,6 @@ app.post('/publish', function(req, res) {
             socket.emit("no_pub");
         }
         console.log(name + " has joined " + room);
-        socket.emit('join');
         socket.emit('owner', rooms[room]['owner']);
         socket.broadcast.to(room).emit('collabs', rooms[room]);
         socket.emit('update', rooms[room]);

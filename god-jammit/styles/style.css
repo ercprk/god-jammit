@@ -108,6 +108,11 @@ body, html {
     margin-top: 3vh;
 }
 
+#ready {
+    float: left;
+    margin-top: 3vh;
+}
+
 .disabled {
     pointer-events: none;
     opacity: 0.4;

@@ -8,10 +8,6 @@ firebase.auth().onAuthStateChanged(function(user) {
   }
 });
 
-socket.on('join', function() {
-    alert("Welcome!");
-});
-
 socket.on('owner', function(owner) {
     $('#owner').val(owner);
 });
@@ -75,6 +71,11 @@ $(document).ready(function() {
         }
     });
     $('#id').val(id[3]);
+    $('#ready').click(function() {
+        $('#ready').html("Waiting");
+        $('#ready').removeClass("btn-success");
+        $('#ready').addClass("btn-warning");
+    });
 });
 
 //https://stackoverflow.com/questions/639815/how-to-disable-all-div-content
