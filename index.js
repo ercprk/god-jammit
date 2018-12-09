@@ -90,6 +90,7 @@ app.post('/publish', function(req, res) {
         }
         else {
             rooms[room][socket.id] = name;
+            socket.emit("no_pub");
         }
         console.log(name + " has joined " + room);
         socket.emit('owner', rooms[room]['owner']);

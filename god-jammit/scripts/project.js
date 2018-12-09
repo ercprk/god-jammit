@@ -51,6 +51,10 @@ socket.on('leave', function() {
     window.open("/", "_self");
 });
 
+socket.on('no_pub', function() {
+    $('#publish').hide();
+});
+
 $(document).ready(function() {
     $(document).keypress(function(key) {
         if (key.keyCode == 13) {
