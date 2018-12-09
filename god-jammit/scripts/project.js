@@ -54,9 +54,14 @@ socket.on('no_pub', function() {
     $('#publish').hide();
 });
 
-socket.on('send_note', function(note) {
+socket.on('send_note', function(note, key) {
     console.log("got note");
-    noteOn(note);
+    // note has to be converted to a number
+    console.log(note);
+    if (key == 144)
+        noteOn(note);
+    else
+        noteOff();
 });
 
 $(document).ready(function() {

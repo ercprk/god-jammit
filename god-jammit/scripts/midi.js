@@ -4,7 +4,6 @@ navigator.requestMIDIAccess()
 function onMIDISuccess(midiAccess) {
      for (var input of midiAccess.inputs.values()){
         input.onmidimessage = getMIDIMessage;
-        console.log('just played a note');
     }
 }
 
@@ -12,13 +11,13 @@ function onMIDIFailure() {
     console.log('Error: Could not access MIDI devices.');
 }
 
-
+// midi message event
 function getMIDIMessage(ev) {
-    socket.emit('receive_note', ev);
-    console.log(ev);
+    console.log(ev["data"]["1"]);
+    socket.emit('receive_note', ev["data"]["1"], ev["data"]["0"]);
     console.log('emitted');
 
-
+// for keyboard, have to be able to convert to midi message
 
 
     /*
