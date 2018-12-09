@@ -16,6 +16,7 @@ function onMIDIFailure() {
 
 
 function getMIDIMessage(ev) {
+    /*
     var cmd = ev.data[0] >> 4;
     var channel = ev.data[0] & 0xf;
     var noteNumber = ev.data[1];
