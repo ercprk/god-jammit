@@ -23,14 +23,13 @@
           firebase.initializeApp(config);
 
           // Socket.io example
-          /*
+
             var socket = io.connect("https://god-jammit.herokuapp.com");
             socket.on('news', function (data) {
             window.alert(data);
             //socket.emit('my other event', { my: 'data' });
             });
-          */
-        
+
         navigator.requestMIDIAccess().then(onMIDISuccess, onMIDIFailure);
 
         function onMIDISuccess(midiAccess) {

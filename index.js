@@ -15,14 +15,15 @@ var io = require('socket.io')(server);
 
 
 // Function that emits message event to clients upon connection
-/*
+
 io.on('connection', function (socket) {
   socket.emit('news', { hello: 'world' });
+  /*
   socket.on('my other event', function (data) {
     console.log(data);
   });
+  */
 });
-*/
 
 
 //---------Initializes Firebase db instance---------//
