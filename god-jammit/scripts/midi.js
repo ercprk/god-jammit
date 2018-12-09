@@ -3,7 +3,7 @@ navigator.requestMIDIAccess()
     .then(onMIDISuccess, onMIDIFailure);
 
 function onMIDISuccess(midiAccess) {
-    socket.emit('receive_note', "hi Jackie");
+    //socket.emit('receive_note', "hi Jackie");
      for (var input of midiAccess.inputs.values()){
         input.onmidimessage = getMIDIMessage;
         console.log('just played a note');
@@ -17,6 +17,7 @@ function onMIDIFailure() {
 
 function getMIDIMessage(ev) {
     console.log(ev);
+    /*
     socket.emit('receive_note', function (){
         console.log ('inside socket emit function');
         return "hi jackie";});
