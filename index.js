@@ -98,8 +98,15 @@ app.post('/publish', function(req, res) {
         socket.broadcast.to(room).emit('alert', name);
         socket.on('disconnect', function() {
             console.log(name + " has left " + room);
-            delete rooms[room][socket.id];
-            io.in(room).emit('remove', rooms[room]);
+            if (!Object.keys(rooms[room]).includes(socket.id)) {
+                console.log("Owner has left!");
+                var clients = io.sockets.adapter.rooms[room].sockets;
+                socket.broadcast.to(room).emit('leave');
+            }
+            else {
+                delete rooms[room][socket.id];
+                io.in(room).emit('remove', rooms[room]);
+            }
         });
     });
   });

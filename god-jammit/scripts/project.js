@@ -47,6 +47,10 @@ socket.on('remove', function(users) {
     }
 });
 
+socket.on('leave', function() {
+    window.open("/", "_self");
+});
+
 $(document).ready(function() {
     $(document).keypress(function(key) {
         if (key.keyCode == 13) {
