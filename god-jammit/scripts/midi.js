@@ -121,7 +121,6 @@ function getMIDIMessage(ev) {
 
 
 /*------- WEB AUDIO API --------*/
-/*
     var context = null;
     var oscillator = null;
     function getOrCreateContext() {
@@ -137,8 +136,14 @@ function getMIDIMessage(ev) {
 
     let isStarted = false;
 
+    active_voices = {};
+
     function noteOn(midiNote) {
       getOrCreateContext();
+      var voice = new Voice(frequency);
+      active_voices[note] = voice;
+      voice.start();
+      /*
       const freq = Math.pow(2, (midiNote-69)/12)*440;
       oscillator.frequency.setTargetAtTime(freq, context.currentTime, 0);
       if (!isStarted) {
@@ -147,10 +152,13 @@ function getMIDIMessage(ev) {
       } else {
         context.resume();
       }
+      */
     }
 
     function noteOff() {
-      context.suspend();
+      active_voices[note].stop();
+      delete active_voices[note];
+      //context.suspend();
     }
 
     function connectToDevice(device) {
@@ -218,12 +226,7 @@ function getMIDIMessage(ev) {
         noteOff();
       }
     });
-*/
 
-/* --- Web audio API ver 2 --- */
-var keyboard = qwertyHancock({id: 'keyboard'});
-
-var context = new AudioContext();
 
 /* VCO */
 var vco = context.createOscillator();
@@ -239,20 +242,7 @@ vca.gain.value = 0;
 vco.connect(vca);
 vca.connect(context.destination);
 
-active_voices = {};
-
-keyboard.keyDown(function (note, frequency) {
-  var voice = new Voice(frequency);
-    active_voices[note] = voice;
-    voice.start();
-});
-
-keyboard.keyUp(function (note, _) {
-    active_voices[note].stop();
-    delete active_voices[note];
-});
-
-// Parameters for voice //
+    // Parameters for voice //
  var Voice = (function(context) {
     function Voice(frequency){
       this.frequency = frequency;
@@ -285,3 +275,25 @@ keyboard.keyUp(function (note, _) {
 
     return Voice;
 })(context);
+
+
+
+/* --- Web audio API ver 2 --- */
+/*
+var keyboard = qwertyHancock({id: 'keyboard'});
+
+var context = new AudioContext();
+
+active_voices = {};
+
+keyboard.keyDown(function (note, frequency) {
+  var voice = new Voice(frequency);
+    active_voices[note] = voice;
+    voice.start();
+});
+
+keyboard.keyUp(function (note, _) {
+    active_voices[note].stop();
+    delete active_voices[note];
+});
+*/
