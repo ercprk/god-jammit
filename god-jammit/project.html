@@ -25,9 +25,9 @@
 
           // Socket.io example
 
-            var socket = io.connect("https://god-jammit.herokuapp.com");
+            var socket = io.connect("https://god-jammit.herokuapp.com:5000");
             socket.on('news', function (data) {
-            window.alert(data);
+            console.log(data);
             //socket.emit('my other event', { my: 'data' });
             });
 
