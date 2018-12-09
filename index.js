@@ -11,9 +11,8 @@ const serviceAccount = require('./serviceAccountKey.json')
 
 
 var server = require('http').createServer(express());
-/*
 var io = require('socket.io')(server);
-*/
+
 
 // Function that emits message event to clients upon connection
 /*
