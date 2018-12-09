@@ -118,9 +118,6 @@ function getMIDIMessage(ev) {
     }
     */
 }
-<<<<<<< HEAD
-=======
-
 /*------- WEB AUDIO API --------*/
     var context = null;
     var oscillator = null;
@@ -217,4 +214,3 @@ function getMIDIMessage(ev) {
         noteOff();
       }
     });
->>>>>>> f09d659bfa4c9de246ec3cd0b4cf4711ba0a9f38
