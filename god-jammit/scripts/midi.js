@@ -121,6 +121,7 @@ function getMIDIMessage(ev) {
 
 
 /*------- WEB AUDIO API --------*/
+/*
     var context = null;
     var oscillator = null;
     function getOrCreateContext() {
@@ -144,7 +145,7 @@ function getMIDIMessage(ev) {
       var voice = new Voice(frequency);
       active_voices[note] = voice;
       voice.start();
-      /*
+      /---- orig start ---/
       const freq = Math.pow(2, (midiNote-69)/12)*440;
       oscillator.frequency.setTargetAtTime(freq, context.currentTime, 0);
       if (!isStarted) {
@@ -153,7 +154,7 @@ function getMIDIMessage(ev) {
       } else {
         context.resume();
       }
-      */
+      /---- orig end ----/
     }
 
     function noteOff() {
@@ -227,6 +228,29 @@ function getMIDIMessage(ev) {
         noteOff();
       }
     });
+*/
+
+
+
+
+/* --- Web audio API ver 2 --- */
+
+var keyboard = qwertyHancock({id: 'keyboard'});
+
+var context = new AudioContext();
+
+active_voices = {};
+
+keyboard.keyDown(function (note, frequency) {
+  var voice = new Voice(frequency);
+    active_voices[note] = voice;
+    voice.start();
+});
+
+keyboard.keyUp(function (note, _) {
+    active_voices[note].stop();
+    delete active_voices[note];
+});
 
 
 /* VCO */
@@ -276,25 +300,3 @@ vca.connect(context.destination);
 
     return Voice;
 })(context);
-
-
-
-/* --- Web audio API ver 2 --- */
-/*
-var keyboard = qwertyHancock({id: 'keyboard'});
-
-var context = new AudioContext();
-
-active_voices = {};
-
-keyboard.keyDown(function (note, frequency) {
-  var voice = new Voice(frequency);
-    active_voices[note] = voice;
-    voice.start();
-});
-
-keyboard.keyUp(function (note, _) {
-    active_voices[note].stop();
-    delete active_voices[note];
-});
-*/
