@@ -80,7 +80,7 @@ socket.on('no_pub', function() {
     $('#publish').hide();
     $('#record').hide();
 });
-
+/*
 // HOW EVERYONE RECIEVES THE NOTE
 socket.on('send_note', function(note, key) {
     // WORK ON VISUALIZER HERE
@@ -92,7 +92,7 @@ socket.on('send_note', function(note, key) {
     else
         noteOff();
 });
-
+*/
 var piano = SampleLibrary.load({
     instruments: "piano"
 });

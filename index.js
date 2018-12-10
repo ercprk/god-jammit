@@ -98,12 +98,13 @@ app.post('/publish', function(req, res) {
         socket.broadcast.to(room).emit('collabs', rooms[room]);
         socket.emit('update', rooms[room]);
         socket.broadcast.to(room).emit('alert', name, socket.id);
-
+/*
         // Recieves MIDI from a client and sends it to everyone including client
         socket.on('receive_note', function(note, key) {
             console.log("note played");
             io.in(room).emit('send_note', note, key);
         });
+*/
         // Keyboard notes
         socket.on('receive_keynote', function(note) {
             console.log("note played");

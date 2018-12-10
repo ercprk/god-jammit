@@ -340,13 +340,13 @@ var active_voices = {};
         //socket.emit('receive_note', emulatedKeys[e.key], 144);
       }
     });
-
+/*
     document.addEventListener('keyup', function(e) {
       //if (emulatedKeys.hasOwnProperty(e.key)) {
         //socket.emit('receive_note', emulatedKeys[e.key], 128);
      // }
     });
-
+*/
 
 
 
