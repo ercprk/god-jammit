@@ -13,7 +13,9 @@ function onMIDIFailure() {
 
 // midi message event
 function getMIDIMessage(ev) {
-    console.log(ev["data"]["1"]);
+    MidiConvert.load(ev, function(midi) {
+        console.log(midi)
+    });
     socket.emit('receive_note', ev["data"]["1"], ev["data"]["0"]);
     console.log('emitted');
 
@@ -227,27 +229,30 @@ var active_voices = {};
 
     // Below is keyboard emulation for C4-C5 q-i keys
     var emulatedKeys = {
-      q: 60,
-      w: 62,
-      e: 64,
-      r: 65,
-      t: 67,
-      y: 69,
-      u: 71,
-      i: 72,
+      q: "C4",
+      w: "D4",
+      e: "E4",
+      r: "F4",
+      t: "G4",
+      y: "A4",
+      u: "B4",
+      i: "C5",
+      o: "D5",
+      p: "E5"
     }
 
     document.addEventListener('keydown', function(e) {
-      console.log(e);
+        console.log(e);
       if (emulatedKeys.hasOwnProperty(e.key)) {
-        socket.emit('receive_note', emulatedKeys[e.key], 144);
+          socket.emit('receive_keynote', emulatedKeys[e.key]);
+        //socket.emit('receive_note', emulatedKeys[e.key], 144);
       }
     });
 
     document.addEventListener('keyup', function(e) {
-      if (emulatedKeys.hasOwnProperty(e.key)) {
-        socket.emit('receive_note', emulatedKeys[e.key], 128);
-      }
+      //if (emulatedKeys.hasOwnProperty(e.key)) {
+        //socket.emit('receive_note', emulatedKeys[e.key], 128);
+     // }
     });
 
 

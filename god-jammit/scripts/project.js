@@ -73,6 +73,19 @@ socket.on('send_note', function(note, key) {
         noteOff();
 });
 
+var piano = SampleLibrary.load({
+    instruments: "piano"
+});
+
+socket.on('send_keynote', function(note) {
+    // WORK ON VISUALIZER HERE
+    console.log("got note");
+    // note has to be converted to a number
+    console.log(note);
+    piano.toMaster();
+    piano.triggerAttack(note);
+});
+
 socket.on('recording', function() {
     $('#record').html("Stop");
     $('#record').removeClass("btn-danger");

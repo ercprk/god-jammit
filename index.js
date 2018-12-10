@@ -104,6 +104,13 @@ app.post('/publish', function(req, res) {
             console.log("note played");
             io.in(room).emit('send_note', note, key);
         });
+        // Keyboard notes
+        socket.on('receive_keynote', function(note) {
+            console.log("note played");
+            io.in(room).emit('send_keynote', note);
+        });
+
+        // Buttons
         socket.on('record', function() {
             var ready = true;
             var names = Object.keys(rooms[room]);
