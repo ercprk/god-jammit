@@ -1,11 +1,30 @@
 //https://stackoverflow.com/questions/31174698/unable-to-prevent-an-input-from-submitting-when-press-the-enter-key-on-it
 var id = document.URL.split('/');
 var socket = io();
+const initMidiVisualizer = import 'midi-visualizer';
+const viz_config = {
+    window: window,
+    root: document.getElementById('#midi_viz'),
+    width: 100%,
+    height: 100%,
+    midi: {
+        data: null
+    }
+    audio: {
+        data: null
+    }
+    renderer: null
+}
+
+initMidiVisualizer(viz_config).then((visualizer) => {
+    const playingVisualizer = visualizer.play();
+    
+}).catch((error) => console.error('Fuck', error));
 
 firebase.auth().onAuthStateChanged(function(user) {
-  if (user) {
-    socket.emit('create', id[3], user.displayName);
-  }
+    if (user) {
+        socket.emit('create', id[3], user.displayName);
+    }
 });
 
 socket.on('owner', function(owner) {
@@ -136,9 +155,9 @@ $(document).ready(function() {
 
 //https://stackoverflow.com/questions/639815/how-to-disable-all-div-content
 firebase.auth().onAuthStateChanged(function(user) {
-  if (!user) {
-      $(document).ready(function() {
-        $('#fun').addClass('disabled');
-      });
-  }
+    if (!user) {
+        $(document).ready(function() {
+            $('#fun').addClass('disabled');
+        });
+    }
 });
