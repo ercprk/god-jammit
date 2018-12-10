@@ -94,7 +94,8 @@ socket.on('send_note', function(note, key) {
 });
 */
 var piano = SampleLibrary.load({
-    instruments: "piano"
+    instruments: "piano",
+    ext: ".wav"
 });
 
 socket.on('send_keynote', function(note) {
