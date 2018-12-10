@@ -19,7 +19,7 @@ var socket = io();
 
 /*initMidiVisualizer(viz_config).then((visualizer) => {
     const playingVisualizer = visualizer.play();
-    
+
 }).catch((error) => console.error('Fuck', error));*/
 
 firebase.auth().onAuthStateChanged(function(user) {

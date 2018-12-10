@@ -242,7 +242,6 @@ var active_voices = {};
     }
 
     document.addEventListener('keydown', function(e) {
-        console.log(e);
       if (emulatedKeys.hasOwnProperty(e.key)) {
           socket.emit('receive_keynote', emulatedKeys[e.key]);
         //socket.emit('receive_note', emulatedKeys[e.key], 144);
