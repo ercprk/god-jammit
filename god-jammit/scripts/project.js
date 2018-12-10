@@ -60,7 +60,9 @@ socket.on('no_pub', function() {
     $('#record').hide();
 });
 
+// HOW EVERYONE RECIEVES THE NOTE
 socket.on('send_note', function(note, key) {
+    // WORK ON VISUALIZER HERE
     console.log("got note");
     // note has to be converted to a number
     console.log(note);
