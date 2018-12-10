@@ -10,12 +10,12 @@ const viz_config = {
     height: 100%,
     midi: {
         data: null
-    }
+    },
     audio: {
         data: null
-    }
+    },
     renderer: null
-}
+};
 
 initMidiVisualizer(viz_config).then((visualizer) => {
     const playingVisualizer = visualizer.play();
