@@ -98,13 +98,11 @@ body, html {
     margin: 10% 0;
 }
 
-#midi {
+#midi_viz {
     float: right;
     width: 75%;
     height: 65vh;
     border: solid;
-    background-image: url("/images/midi.jpg");
-    background-size: cover;
 }
 
 #publish, #record {
