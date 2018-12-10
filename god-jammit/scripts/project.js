@@ -16,13 +16,14 @@ socket.on('collabs', function(users) {
     var collabs = "";
     var names = Object.keys(users);
     for (var i = 0; i < names.length; i++) {
-        if (names != "owner") {
+        if (names[i] != "owner") {
             collabs += users[names[i]].name;
             if (i != names.length - 1) {
                 collabs += ", ";
             }
         }
     }
+    console.log(collabs);
     $('#collaborators').val(collabs);
 });
 
@@ -92,8 +93,13 @@ socket.on('show_ready', function(id) {
     $('#users').find('#' + id).css('color', 'green');
 });
 socket.on('check', function() {
-    var check = confirm("Are you ready to publish?");
-    socket.emit('send', check);
+    if ($('#ready').html() == "Finished!") {
+        var check = confirm("Are you ready to publish?");
+        socket.emit('send', check);
+    }
+    else {
+        alert("You didn't finish recording!");
+    }
 });
 socket.on('submit', function() {
     $('#song_finish').submit();
