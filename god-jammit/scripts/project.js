@@ -6,8 +6,8 @@ var funcMidiVisualizer = require("func-midi-visualizer");
 const viz_config = {
     window: window,
     root: document.getElementById('#midi_viz'),
-    width: 100%,
-    height: 100%,
+    width: 460,
+    height: 350,
     midi: {
         data: null
     },
