@@ -141,7 +141,7 @@ var active_voices = {};
 
     function noteOn(midiNote) {
       getOrCreateContext();
-      
+
       /*
       var freq = Math.pow(2, (midiNote-69)/12)*440;
       var active_voices[freq] = context.createOscillator();
@@ -156,7 +156,7 @@ var active_voices = {};
       */
 
       //---- orig start ---//      /*
-  
+
       const freq = Math.pow(2, (midiNote-69)/12)*440;
 
       oscillator.frequency.setTargetAtTime(freq, context.currentTime, 0);
@@ -175,7 +175,7 @@ var active_voices = {};
       delete active_voices[note];
       */
       var freq = Math.pow(2, (midiNote-69)/12)*440;
-      /* 
+      /*
       forn each(var osc in active_voices) {
         if (osc.frequency == freq)
           osc.oscillator.stop(0);
@@ -240,13 +240,13 @@ var active_voices = {};
     document.addEventListener('keydown', function(e) {
       console.log(e);
       if (emulatedKeys.hasOwnProperty(e.key)) {
-        noteOn(emulatedKeys[e.key]);
+        socket.emit('receive_note', emulatedKeys[e.key], 144);
       }
     });
 
     document.addEventListener('keyup', function(e) {
       if (emulatedKeys.hasOwnProperty(e.key)) {
-        noteOff(emulatedKeys[e.key]);
+        socket.emit('receive_note', emulatedKeys[e.key], 128);
       }
     });
 
