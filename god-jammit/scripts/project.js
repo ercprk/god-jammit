@@ -1,9 +1,9 @@
 //https://stackoverflow.com/questions/31174698/unable-to-prevent-an-input-from-submitting-when-press-the-enter-key-on-it
 var id = document.URL.split('/');
 var socket = io();
-var funcMidiVisualizer = require("func-midi-visualizer");
+//var funcMidiVisualizer = require("func-midi-visualizer");
 
-const viz_config = {
+/*const viz_config = {
     window: window,
     root: document.getElementById('#midi_viz'),
     width: 460,
@@ -15,12 +15,12 @@ const viz_config = {
         data: null
     },
     renderer: null
-};
+};*/
 
-initMidiVisualizer(viz_config).then((visualizer) => {
+/*initMidiVisualizer(viz_config).then((visualizer) => {
     const playingVisualizer = visualizer.play();
     
-}).catch((error) => console.error('Fuck', error));
+}).catch((error) => console.error('Fuck', error));*/
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
