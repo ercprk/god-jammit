@@ -137,17 +137,28 @@ function getMIDIMessage(ev) {
 
     let isStarted = false;
 
-    active_voices = {};
+var active_voices = {};
 
     function noteOn(midiNote) {
       getOrCreateContext();
+      
       /*
-      var frequency = Math.pow(2, (midiNote-69)/12)*440;
-      var voice = new Voice(frequency);
-      active_voices[note] = voice;
-      voice.start();*/
-      //---- orig start ---/
+      var freq = Math.pow(2, (midiNote-69)/12)*440;
+      var active_voices[freq] = context.createOscillator();
+      active_voices[freq].connect(context.destination);
+      active_voices[freq].frequency.setTargetAtTime(freq, context.currentTime, 0);
+      if (!isStarted) {
+        active_voices[freq].start(0);
+        isStarted = true;
+      } else {
+        context.resume();
+      }
+      */
+
+      //---- orig start ---//      /*
+  
       const freq = Math.pow(2, (midiNote-69)/12)*440;
+
       oscillator.frequency.setTargetAtTime(freq, context.currentTime, 0);
       if (!isStarted) {
         oscillator.start(0);
@@ -155,13 +166,20 @@ function getMIDIMessage(ev) {
       } else {
         context.resume();
       }
-      //---- orig end ----/
+      //---- orig end ----//\
     }
 
-    function noteOff() {
+    function noteOff(midiNote) {
       /*
       active_voices[note].stop();
       delete active_voices[note];
+      */
+      var freq = Math.pow(2, (midiNote-69)/12)*440;
+      /* 
+      forn each(var osc in active_voices) {
+        if (osc.frequency == freq)
+          osc.oscillator.stop(0);
+      }
       */
       context.suspend();
     }
@@ -175,7 +193,7 @@ function getMIDIMessage(ev) {
           noteOn(key);
         } else if(command === 129) {
           debugEl.innerText = 'KEY DOWN';
-          noteOff();
+          noteOff(key);
         }
       }
     }
@@ -228,7 +246,7 @@ function getMIDIMessage(ev) {
 
     document.addEventListener('keyup', function(e) {
       if (emulatedKeys.hasOwnProperty(e.key)) {
-        noteOff();
+        noteOff(emulatedKeys[e.key]);
       }
     });
 
