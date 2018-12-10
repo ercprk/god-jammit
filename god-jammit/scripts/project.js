@@ -2,7 +2,7 @@
 var id = document.URL.split('/');
 var socket = io();
 var funcMidiVisualizer = require("func-midi-visualizer");
-const initMidiVisualizer = import 'midi-visualizer';
+
 const viz_config = {
     window: window,
     root: document.getElementById('#midi_viz'),
