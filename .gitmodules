@@ -1,7 +1,0 @@
-[submodule "god-jammit/MIDI.js"]
-	path = god-jammit/MIDI.js
-	url = https://github.com/mudcube/MIDI.js
-
-[submodule "god-jammit/tonejs-instruments"]
-    path = god-jammit/tonejs-instruments
-    url = https://github.com/nbrosowsky/tonejs-instruments
