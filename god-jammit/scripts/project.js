@@ -15,7 +15,24 @@ enc.forEach(e => {
 console.log(mime);*/
 var funcMidiVisualizer = require("func-midi-visualizer");
 
-const initMidiVisualizer = import 'midi-visualizer';
+const config = {
+  window: window,
+  root: document.getElementById('#midi_viz'),
+  width: 300,
+  height: 300,
+  midi: {
+    data: null
+  },
+  audio: {
+    data: null
+  },
+  renderer: null
+};
+
+initMidiVisualizer(config).then((visualizer) => {
+  const playingVisualizer = visualizer.play();
+  
+}).catch((error) => console.error('Oh man, something bad happened:', error));
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
