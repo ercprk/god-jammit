@@ -12,10 +12,10 @@ enc.forEach(e => {
     mime = `audio/${e};codecs="opus"`;
   }
 });
-console.log(mime);
-//var funcMidiVisualizer = require("func-midi-visualizer");
+console.log(mime);*/
+var funcMidiVisualizer = require("func-midi-visualizer");
 
-/*const initMidiVisualizer = import 'midi-visualizer';*/
+const initMidiVisualizer = import 'midi-visualizer';
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
