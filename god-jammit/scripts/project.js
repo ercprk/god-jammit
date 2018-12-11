@@ -43,7 +43,6 @@ socket.on('collabs', function(users) {
             }
         }
     }
-    console.log(collabs);
     $('#collaborators').val(collabs);
 });
 
@@ -94,17 +93,16 @@ socket.on('send_note', function(note, key) {
 });
 */
 var piano = SampleLibrary.load({
-    instruments: "piano",
-    ext: ".wav"
+    instruments: "piano"
 });
 
 socket.on('send_keynote', function(note) {
     // WORK ON VISUALIZER HERE
-    console.log("got note");
-    // note has to be converted to a number
-    console.log(note);
     piano.toMaster();
     piano.triggerAttack(note);
+});
+socket.on('midi', function(note) {
+    alert("note received");
 });
 
 socket.on('recording', function() {

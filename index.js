@@ -87,7 +87,7 @@ app.post('/publish', function(req, res) {
         socket.join(room);
         if (rooms[room] == null || rooms[room] == {}) {
             rooms[room] = {};
-            rooms[room]["owner"] = { "name": name, "ready": false };
+            rooms[room]["owner"] = { "name": name, "ready": false, "socket_id": socket.id };
         }
         else {
             rooms[room][socket.id] = { "name": name, "ready": false };
@@ -107,8 +107,10 @@ app.post('/publish', function(req, res) {
 */
         // Keyboard notes
         socket.on('receive_keynote', function(note) {
-            console.log("note played");
             io.in(room).emit('send_keynote', note);
+        });
+        socket.on('for_recording', function(note) {
+            socket.broadcast.to(rooms[room]["owner"].socket_id).emit('midi', note);
         });
 
         // Buttons
