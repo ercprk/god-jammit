@@ -227,8 +227,24 @@ var emulatedKeys = {
       u: "B4",
       i: "C5",
       o: "D5",
-      p: "E5"
-    }
+      p: "E5",
+      a: "C#4",
+      s: "D#4",
+      //d: "E#4",
+      f: "F#4",
+      g: "G#4",
+      h: "A#4",
+      //j: "B#4",
+      k: "C#5",
+      l: "D#5",
+      z: "C2",
+      x: "D2",
+      c: "E2",
+      v: "F2",
+      b: "G2",
+      n: "A2",
+      m: "B2"
+}
 
 document.addEventListener('keydown', function(e) {
   if (emulatedKeys.hasOwnProperty(e.key)) {

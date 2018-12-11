@@ -13,9 +13,9 @@ enc.forEach(e => {
   }
 });
 console.log(mime);*/
-var funcMidiVisualizer = require("func-midi-visualizer");
+/*var funcMidiVisualizer = require("func-midi-visualizer");
 
-const config = {
+const viz_config = {
   window: window,
   root: document.getElementById('#midi_viz'),
   width: 300,
@@ -29,10 +29,10 @@ const config = {
   renderer: null
 };
 
-initMidiVisualizer(config).then((visualizer) => {
+initMidiVisualizer(viz_config).then((visualizer) => {
   const playingVisualizer = visualizer.play();
   
-}).catch((error) => console.error('Oh man, something bad happened:', error));
+}).catch((error) => console.error('Oh man, something bad happened:', error));*/
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
