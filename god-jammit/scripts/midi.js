@@ -234,6 +234,6 @@ var emulatedKeys = {
 document.addEventListener('keydown', function(e) {
   if (emulatedKeys.hasOwnProperty(e.key)) {
       socket.emit('receive_keynote', emulatedKeys[e.key]);
-      socket.emit('for_recording', midiToTone[ev["data"][1]]);
+      socket.emit('for_recording', emulatedKeys[e.key]);
   }
 });

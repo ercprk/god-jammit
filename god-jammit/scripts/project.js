@@ -70,7 +70,7 @@ socket.on('send_keynote', function(note) {
     piano.triggerAttack(note);
 });
 socket.on('midi', function(note) {
-    alert("note received");
+    console.log("note is received");
 });
 
 socket.on('recording', function() {
