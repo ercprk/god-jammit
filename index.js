@@ -94,7 +94,13 @@ app.post('/publish', function(req, res) {
         // Keyboard notes
         socket.on('receive_keynote', function(note) {
             io.in(room).emit('send_keynote', note);
-            socket.broadcast.to(rooms[room]["owner"].socket_id).emit('midi', note);
+            console.log('note played');
+            if (!Object.keys(rooms[room]).includes(socket.id)) {
+                socket.emit('midi', note);
+            }
+            else {
+                socket.broadcast.to(rooms[room]["owner"].socket_id).emit('midi', note);
+            }
         });
 
         // Buttons
