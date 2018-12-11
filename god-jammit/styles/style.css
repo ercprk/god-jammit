@@ -150,12 +150,12 @@ body, html {
     width: 90%;
 }
 
-#play {
+.play {
     width: 10%;
     float: right;
     background-color: transparent;
 }
 
-#play img {
+.play img {
     height: 10vh;
 }

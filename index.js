@@ -53,12 +53,13 @@ app.post('/search', function(req, res) {
         var songs = snapshot.val();
         var keys = Object.keys(songs);
         for (var i = 0; i < keys.length; i++) {
-            if (songs[keys[i]]["name"].includes(req.body.search))
+            if (songs[keys[i]]["name"].includes(req.body.search)) {
                 results[keys[i]] = songs[keys[i]];
+                results[keys[i]].song_id = keys[i];
+            }
         }
         res.render('search', {"result": req.body.search, "songs": results});
       });
-      //res.sendFile('search.html', {root: __dirname + '/god-jammit/'});
   });
 app.post('/publish', function(req, res) {
       db.ref("projects/" + req.body.id).set({
@@ -67,8 +68,8 @@ app.post('/publish', function(req, res) {
           "collaborators": req.body.collaborators,
           "made_at": Date(),
           "audio": req.body.audio
-      })
-      res.redirect('/')
+      });
+      res.redirect('/');
   });
 
   var rooms = {};
