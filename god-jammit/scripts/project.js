@@ -1,26 +1,6 @@
 //https://stackoverflow.com/questions/31174698/unable-to-prevent-an-input-from-submitting-when-press-the-enter-key-on-it
 var id = document.URL.split('/');
 var socket = io();
-//var funcMidiVisualizer = require("func-midi-visualizer");
-
-/*const viz_config = {
-    window: window,
-    root: document.getElementById('#midi_viz'),
-    width: 460,
-    height: 350,
-    midi: {
-        data: null
-    },
-    audio: {
-        data: null
-    },
-    renderer: null
-};*/
-
-/*initMidiVisualizer(viz_config).then((visualizer) => {
-    const playingVisualizer = visualizer.play();
-
-}).catch((error) => console.error('Fuck', error));*/
 
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
@@ -79,19 +59,7 @@ socket.on('no_pub', function() {
     $('#publish').hide();
     $('#record').hide();
 });
-/*
-// HOW EVERYONE RECIEVES THE NOTE
-socket.on('send_note', function(note, key) {
-    // WORK ON VISUALIZER HERE
-    console.log("got note");
-    // note has to be converted to a number
-    console.log(note);
-    if (key == 144)
-        noteOn(note);
-    else
-        noteOff();
-});
-*/
+
 var piano = SampleLibrary.load({
     instruments: "piano"
 });

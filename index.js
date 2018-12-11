@@ -24,9 +24,6 @@ var db = admin.database();
 //----------Initializes Express instance
 //https://stackoverflow.com/questions/18165138/res-sendfile-doesnt-serve-javascripts-well
 app.use(express.static(path.join(__dirname, '/god-jammit')));
-  //.use('/styles', express.static(path.join(__dirname, '/god-jammit/styles')))
-  //.use('/scripts', express.static(path.join(__dirname, '/god-jammit/scripts')))
-  //.use('/images', express.static(path.join(__dirname, '/god-jammit/images')))
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(function(req, res, next) {
@@ -35,13 +32,8 @@ app.use(function(req, res, next) {
      next();
  });
 app.set('views', path.join(__dirname, 'views'));
-  //.engine('html', require('ejs').renderFile)
 app.set('view engine', 'ejs');
-  //.set('view engine', 'html')
 app.set('view engine', 'pug');
-
-
-  //.get('/', (req, res) => res.sendFile('index.html', {root: __dirname + '/god-jammit/'}))
   //https://stackoverflow.com/questions/25270434/nodejs-how-to-render-static-html-with-express-4
 app.post('/', function(req, res) {
     if (JSON.parse(req.body.logged_in)) {
@@ -78,7 +70,7 @@ app.post('/publish', function(req, res) {
       })
       res.redirect('/')
   });
-  //.post('/submit', function(req, res) {})
+
   var rooms = {};
   var users;
   // Function that emits message event to clients upon connection
@@ -98,13 +90,7 @@ app.post('/publish', function(req, res) {
         socket.broadcast.to(room).emit('collabs', rooms[room]);
         socket.emit('update', rooms[room]);
         socket.broadcast.to(room).emit('alert', name, socket.id);
-/*
-        // Recieves MIDI from a client and sends it to everyone including client
-        socket.on('receive_note', function(note, key) {
-            console.log("note played");
-            io.in(room).emit('send_note', note, key);
-        });
-*/
+
         // Keyboard notes
         socket.on('receive_keynote', function(note) {
             io.in(room).emit('send_keynote', note);
