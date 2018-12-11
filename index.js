@@ -106,6 +106,11 @@ app.post('/publish', function(req, res) {
         socket.on('finish_song', function(audio) {
             io.in(room).emit('play', audio);
         });
+        socket.on('play_song', function(id) {
+            db.ref("projects").child(id).once('value', function(snapshot) {
+              socket.emit('song_here', snapshot.val().audio);
+          });
+        });
 
         // Buttons
         socket.on('record', function() {
@@ -137,7 +142,6 @@ app.post('/publish', function(req, res) {
             io.in(room).emit('show_finish');
         });
         socket.on('publish', function() {
-            // compile MIDI
             socket.emit('check');
         });
         socket.on('send', function(sure, source) {
