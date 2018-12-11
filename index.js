@@ -103,6 +103,9 @@ app.post('/publish', function(req, res) {
                 socket.broadcast.to(rooms[room]["owner"].socket_id).emit('midi', note);
             }
         });
+        socket.on('finish_song', function(audio) {
+            io.in(room).emit('play', audio);
+        });
 
         // Buttons
         socket.on('record', function() {
@@ -137,9 +140,9 @@ app.post('/publish', function(req, res) {
             // compile MIDI
             socket.emit('check');
         });
-        socket.on('send', function(sure) {
+        socket.on('send', function(sure, source) {
             if (sure) {
-                socket.emit('submit');
+                socket.emit('submit', source);
             }
         });
 

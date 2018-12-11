@@ -1,6 +1,18 @@
 //https://stackoverflow.com/questions/31174698/unable-to-prevent-an-input-from-submitting-when-press-the-enter-key-on-it
 var id = document.URL.split('/');
 var socket = io();
+var recorder = null;
+var audio_source = null;
+/*
+//https://stackoverflow.com/questions/43903963/post-html5-audio-data-to-server
+var enc = ['ogg', 'webm'];
+var mime = "";
+enc.forEach(e => {
+  if (!mime && MediaRecorder.isTypeSupported(`audio/${e};codecs="opus"`)) {
+    mime = `audio/${e};codecs="opus"`;
+  }
+});
+console.log(mime);
 //var funcMidiVisualizer = require("func-midi-visualizer");
 
 /*const initMidiVisualizer = import 'midi-visualizer';*/
@@ -98,13 +110,14 @@ socket.on('show_ready', function(id) {
 socket.on('check', function() {
     if ($('#ready').html() == "Finished!") {
         var check = confirm("Are you ready to publish?");
-        socket.emit('send', check);
+        socket.emit('send', check, audio_source);
     }
     else {
         alert("You didn't finish recording!");
     }
 });
-socket.on('submit', function() {
+socket.on('submit', function(source) {
+    $('#audio_song').val(source);
     $('#song_finish').submit();
 });
 
@@ -123,11 +136,24 @@ $(document).ready(function() {
             socket.emit('ready');
         }
     });
+
     $('#record').click(function() {
         if ($('#record').html() == "Record") {
+            navigator.mediaDevices.getUserMedia({
+                audio: true
+            })
+            .then(function (stream) {
+                recorder = new MediaRecorder(stream);
+                recorder.start();
+                console.log("recorder started");
+                recorder.addEventListener('dataavailable', onRecordingReady);
+            });
             socket.emit('record');
         }
         else {
+            recorder.stop();
+            console.log("recorder stopped");
+            recorder = null;
             $('#record').hide();
             socket.emit('finish');
         }
@@ -135,6 +161,19 @@ $(document).ready(function() {
     $('#publish').click(function() {
         socket.emit('publish');
     });
+});
+
+function onRecordingReady(e) {
+    socket.emit('finish_song', URL.createObjectURL(e.data));
+}
+
+socket.on('play', function(audio_src) {
+    var audio = document.getElementById('audio');
+    // e.data contains a blob representing the recording
+    audio.src = audio_src;
+    //console.log(audio.src);
+    audio_source = audio_src;
+    audio.play();
 });
 
 //https://stackoverflow.com/questions/639815/how-to-disable-all-div-content
