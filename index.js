@@ -94,8 +94,6 @@ app.post('/publish', function(req, res) {
         // Keyboard notes
         socket.on('receive_keynote', function(note) {
             io.in(room).emit('send_keynote', note);
-        });
-        socket.on('for_recording', function(note) {
             socket.broadcast.to(rooms[room]["owner"].socket_id).emit('midi', note);
         });
 

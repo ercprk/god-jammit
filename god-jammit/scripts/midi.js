@@ -106,7 +106,6 @@ var midiToTone = {
 function getMIDIMessage(ev) {
     if (midiToTone.hasOwnProperty(ev["data"][1]) && ev["data"][0] == 144) {
         socket.emit('receive_keynote', midiToTone[ev["data"][1]]);
-        socket.emit('for_recording', midiToTone[ev["data"][1]]);
     }
 }
 
@@ -234,6 +233,5 @@ var emulatedKeys = {
 document.addEventListener('keydown', function(e) {
   if (emulatedKeys.hasOwnProperty(e.key)) {
       socket.emit('receive_keynote', emulatedKeys[e.key]);
-      socket.emit('for_recording', emulatedKeys[e.key]);
   }
 });
